@@ -1,0 +1,12 @@
+all_home:
+  name: Sett alle hjemme
+  initial: off
+  icon: mdi:account-multiple
+all_away:
+  name: Sett alle borte
+  initial: off
+  icon: mdi:account-multiple
+on_all_automations:
+  name: Slå på alle automasjoner
+  initial: off
+  icon: mdi:animation

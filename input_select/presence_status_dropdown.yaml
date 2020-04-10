@@ -1,0 +1,108 @@
+morten_status_dropdown:
+  name: Morten
+  options:
+    - Hjemme
+    - Akkurat kommet hjem
+    - Akkurat reist
+    - Borte
+    - Jobb
+    - Tine
+    - Jessheim VGS
+    - Gystadmarka Ungdomsskole
+    - Skateparken
+    - Sentrum
+    - Torun
+    - Bortreist
+  initial: Hjemme
+
+helen_status_dropdown:
+  name: Helén
+  options:
+    - Hjemme
+    - Akkurat kommet hjem
+    - Akkurat reist
+    - Borte
+    - Jobb
+    - Tine
+    - Jessheim VGS
+    - Gystadmarka Ungdomsskole
+    - Skateparken
+    - Sentrum
+    - Torun
+    - Ahus
+    - Bortreist
+  initial: Hjemme
+  
+karoline_status_dropdown:
+  name: Karoline
+  options:
+    - Hjemme
+    - Akkurat kommet hjem
+    - Akkurat reist
+    - Borte
+    - Jobb
+    - Tine
+    - Jessheim VGS
+    - Gystadmarka Ungdomsskole
+    - Skateparken
+    - Sentrum
+    - Torun
+    - Bortreist
+  initial: Hjemme
+
+emil_status_dropdown:
+  name: Emil
+  options:
+    - Hjemme
+    - Akkurat kommet hjem
+    - Akkurat reist
+    - Borte
+    - Jobb
+    - Tine
+    - Jessheim VGS
+    - Gystadmarka Ungdomsskole
+    - Skateparken
+    - Sentrum
+    - Torun
+    - Bortreist
+  initial: Hjemme
+  
+tobias_status_dropdown:
+  name: Tobias
+  options:
+    - Hjemme
+    - Akkurat kommet hjem
+    - Akkurat reist
+    - Borte
+    - Jobb
+    - Tine
+    - Jessheim VGS
+    - Gystadmarka Ungdomsskole
+    - Skateparken
+    - Sentrum
+    - Torun
+    - Bortreist
+  initial: Hjemme
+
+ole_status_dropdown:
+  name: Ole
+  options:
+    - Hjemme
+    - Akkurat kommet hjem
+    - Akkurat reist
+    - Borte
+    - Jobb
+    - Tine
+    - Jessheim VGS
+    - Gystadmarka Ungdomsskole
+    - Skateparken
+    - Sentrum
+    - Torun
+    - Bortreist
+  initial: Hjemme
+
+time_of_day_dropdown:
+  name: Time of day
+  options:
+    - Dagtid
+    - Natt

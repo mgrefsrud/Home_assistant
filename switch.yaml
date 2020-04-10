@@ -1,0 +1,147 @@
+#rfxcom
+- platform: rfxtrx
+  automatic_add: true
+  signal_repetitions: 2
+  devices:
+    0b11000000b7086e01010f80:
+      name: 1_kitchen_sideboard
+    0b11001200b7086e03010f80:
+      name: 1_hall_closet_switch
+    0b110000002f10f501000080:
+      name: extra_1
+    0b110002019ba60501010f80:
+      name: extra_4
+    0b1100000354ba4201010f80:
+      name: extra_3
+    0b1100050073399801010f80:
+      name: extra_2
+
+#MQTT SWITCHES
+- platform: mqtt
+  name: "garage spotlights"
+  command_topic: "cmnd/garage_spotlights/power"
+  state_topic: "stat/garage_spotlights/POWER"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: true
+- platform: mqtt
+  name: "garage attic lights"
+  command_topic: "cmnd/garage_attic_lights/power"
+  state_topic: "stat/garage_attic_lights/POWER"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: true
+- platform: mqtt
+  name: "2 bedroom e heater"
+  command_topic: "cmnd/2_bedroom_e_heater/power"
+  state_topic: "stat/2_bedroom_e_heater/POWER"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: true
+- platform: mqtt
+  name: "2 bedroom o heater"
+  command_topic: "cmnd/2_bedroom_o_heater/power"
+  state_topic: "stat/2_bedroom_o_heater/POWER"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: true
+- platform: mqtt
+  name: "1 bedroom k heater"
+  command_topic: "cmnd/1_bedroom_k_heater/power"
+  state_topic: "stat/1_bedroom_k_heater/POWER"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: true
+- platform: mqtt
+  name: "2 bedroom t heater"
+  command_topic: "cmnd/2_bedroom_t_heater/power"
+  state_topic: "stat/2_bedroom_t_heater/POWER"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: true  
+  
+
+#Front door lock
+- platform: template
+  switches:
+    yale_lock:
+      friendly_name: 'Utgangsdør lås'
+      value_template: "{{ is_state('lock.front_door', 'locked') }}"
+      turn_on:
+        service: lock.lock
+        data:
+          entity_id: lock.front_door
+          code: !secret verisure_lock_code
+      turn_off:
+        service: lock.unlock
+        data:
+          entity_id: lock.front_door
+          code: !secret verisure_lock_code
+#      icon_template: >
+#          {% if is_state('lock.front_door', 'unlocked') %}
+#            mdi:lock-open-outline
+#          {% else %}
+#            mdi:lock
+#          {% endif %}  
+          
+- platform: template
+  switches:
+    1_livingroom_soundbar:
+      value_template: "true"
+#      value_template: >-
+#        {% if is_state('input_select.soundbar_status_dropdown','On') %}
+#        {{ states('input_select.soundbar_status_dropdown') }}
+#        {% else %}
+#        {{ states('input_select.soundbar_status_dropdown') }}
+#        {% endif %}      
+      turn_on:
+        - service: script.turn_on
+          entity_id: script.soundbar_on
+      turn_off:
+        - service: script.turn_on
+          entity_id: script.soundbar_off
+
+    1_livingroom_soundbar_mute:
+      value_template: >-
+        {% if is_state('input_select.soundbar_status_dropdown','On') %}
+        {{ states('input_select.soundbar_status_dropdown') }}
+        {% else %}
+        {{ states('input_select.soundbar_status_dropdown') }}
+        {% endif %}      
+      turn_on:
+        - service: script.turn_on
+          entity_id: script.soundbar_mute
+      turn_off:
+        - service: script.turn_on
+          entity_id: script.soundbar_mute
+
+    1_livingroom_heatpump:
+#      value_template: "{{ is_state('input_select.heatpump', 'On') }}"
+      value_template: >-
+        {% if is_state('input_select.heatpump','On') %}
+        {{ states('input_select.heatpump') }}
+        {% else %}
+        {{ states('input_select.heatpump') }}
+        {% endif %}      
+      turn_on:       
+        - service: script.turn_on
+          entity_id: script.heatpump_heat
+      turn_off:
+        - service: script.turn_on
+          entity_id: script.heatpump_off
+
+
+#    1_livingroom_heat_pump:
+#      value_template: "true"
+#      turn_on:
+#        - service: climate.turn_on
+#          entity_id: climate.1_livingroom_heat_pump
+#      turn_off:
+#        - service: cliamte.turn_off
+#          entity_id: climate.1_livingroom_heat_pump

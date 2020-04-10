@@ -1,0 +1,11 @@
+scene_status_dropdown:
+  name: Scene_status
+  options:
+    - Natta
+    - Morgen
+    - Normal
+    - Kveld
+    - Ingen_hjemme
+    - Strikke
+    - Film
+  initial: Normal

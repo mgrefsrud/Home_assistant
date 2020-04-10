@@ -1,0 +1,215 @@
+tv_on_off:
+    sequence:
+      - service: remote.send_command
+        entity_id: 'remote.xiaomi_miio_192_168_0_7'
+        data:
+          command:
+            - 'tv_on_off'
+tv_play:
+    sequence:
+      - service: remote.send_command
+        entity_id: 'remote.xiaomi_miio_192_168_0_7'
+        data:
+          command:
+            - 'tv_play'                        
+tv_pause:
+    sequence:
+      - service: remote.send_command
+        entity_id: 'remote.xiaomi_miio_192_168_0_7'
+        data:
+          command:
+            - 'tv_pause'                        
+tv_hdmi_1:
+    sequence:
+      - service: remote.send_command
+        entity_id: 'remote.xiaomi_miio_192_168_0_7'
+        data:
+          command:
+            - 'tv_hdmi_1'                                    
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.tv_source_dropdown
+          option: hdmi 1
+
+tv_hdmi_2:
+    sequence:
+      - service: remote.send_command
+        entity_id: 'remote.xiaomi_miio_192_168_0_7'
+        data:
+          command:
+            - 'tv_hdmi_2'                                    
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.tv_source_dropdown
+          option: hdmi 2
+
+tv_hdmi_3:
+    sequence:
+      - service: remote.send_command
+        entity_id: 'remote.xiaomi_miio_192_168_0_7'
+        data:
+          command:
+            - 'tv_hdmi_3'  
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.tv_source_dropdown
+          option: hdmi 3
+
+soundbar_on:
+    sequence:
+      - service: remote.send_command
+        entity_id: 'remote.xiaomi_miio_192_168_0_7'
+        data:
+          command:
+            - 'soundbar_on_off'    
+soundbar_off:
+    sequence:
+      - service: remote.send_command
+        entity_id: 'remote.xiaomi_miio_192_168_0_7'
+        data:
+          command:
+            - 'soundbar_on_off'
+soundbar_mute:
+    sequence:
+      - service: remote.send_command
+        entity_id: 'remote.xiaomi_miio_192_168_0_7'
+        data:
+          command:
+            - 'soundbar_mute'
+soundbar_volume_down:
+    sequence:
+      - service: remote.send_command
+        entity_id: 'remote.xiaomi_miio_192_168_0_7'
+        data:
+          command:
+            - 'soundbar_volume_down'  
+soundbar_volume_up:
+    sequence:
+      - service: remote.send_command
+        entity_id: 'remote.xiaomi_miio_192_168_0_7'
+        data:
+          command:
+            - 'soundbar_volume_up'  
+soundbar_optical:
+    sequence:
+      - service: remote.send_command
+        entity_id: 'remote.xiaomi_miio_192_168_0_7'
+        data:
+          command:
+            - 'soundbar_optical'
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.soundbar_source_dropdown
+          option: optical
+            
+soundbar_bluetooth:
+    sequence:
+      - service: remote.send_command
+        entity_id: 'remote.xiaomi_miio_192_168_0_7'
+        data:
+          command:
+            - 'soundbar_bluetooth' 
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.soundbar_source_dropdown
+          option: bluetooth
+
+soundbar_aux:
+    sequence:
+      - service: remote.send_command
+        entity_id: 'remote.xiaomi_miio_192_168_0_7'
+        data:
+          command:
+            - 'soundbar_aux'                                                                        
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.soundbar_source_dropdown
+          option: aux
+
+soundbar_hdmi:
+    sequence:
+      - service: remote.send_command
+        entity_id: 'remote.xiaomi_miio_192_168_0_7'
+        data:
+          command:
+            - 'soundbar_hdmi' 
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.soundbar_source_dropdown
+          option: hdmi
+        
+blueray_on_off:
+    sequence:
+      - service: remote.send_command
+        entity_id: 'remote.xiaomi_miio_192_168_0_7'
+        data:
+          command:
+            - 'blueray_on_off'           
+blueray_play:
+    sequence:
+      - service: remote.send_command
+        entity_id: 'remote.xiaomi_miio_192_168_0_7'
+        data:
+          command:
+            - 'blueray_play'           
+blueray_pause:
+    sequence:
+      - service: remote.send_command
+        entity_id: 'remote.xiaomi_miio_192_168_0_7'
+        data:
+          command:
+            - 'blueray_pause'           
+
+heatpump_heat:
+    sequence:
+      - service: remote.send_command
+        entity_id: 'remote.xiaomi_miio_192_168_0_7'
+        data:
+          command:
+            - 'heatpump_heat' 
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.heatpump
+          option: On
+
+heatpump_cool:
+    sequence:
+      - service: remote.send_command
+        entity_id: 'remote.xiaomi_miio_192_168_0_7'
+        data:
+          command:
+            - 'heatpump_cool' 
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.heatpump
+          option: On
+
+heatpump_off:
+    sequence:
+      - service: remote.send_command
+        entity_id: 'remote.xiaomi_miio_192_168_0_7'
+        data:
+          command:
+            - 'heatpump_off'
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.heatpump
+          option: Off
+            
+#soundbar_source:
+#  alias: JBL soundbar source
+#  sequence:
+#    - service: script.turn_on
+#      data_template:
+#        entity_id: >
+#          {% if is_state('input_select.soundbar_source_dropdown', 'optical') %}
+#            script.soundbar_optical
+#          {% elif is_state('input_select.soundbar_source_dropdown', 'hdmi') %}
+#            script.soundbar_hdmi
+#          {% elif is_state('input_select.soundbar_source_dropdown', 'aux') %}
+#            script.soundbar_aux
+#          {% elif is_state('input_select.soundbar_source_dropdown', 'bluetooth') %}
+#            script.soundbar_bluetooth
+#          {% else %}
+#              none
+#          {% endif %}

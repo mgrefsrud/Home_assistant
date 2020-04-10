@@ -1,0 +1,7 @@
+alarm_status:
+  name: Skallsikring
+  options:
+    - På
+    - Av
+  initial: Av
+  

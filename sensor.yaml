@@ -1,0 +1,155 @@
+# Weather prediction
+- platform: yr
+  name: YR
+  forecast: 24
+  monitored_conditions:
+    - temperature
+    - symbol
+    - precipitation
+    - windSpeed
+    - pressure
+    - windDirection
+    - humidity
+    - fog
+    - cloudiness
+    - lowClouds
+    - mediumClouds
+    - highClouds
+    - dewpointTemperature
+    
+#Netatmo sensor
+- platform: netatmo
+  station: Hesteløkka
+  modules: 
+    - 1_Livingroom
+    - Outside
+    - Rain_Sensor
+
+####Ipadresse####
+- platform: dnsip
+
+#Waze travel sensor
+#- platform: waze_travel_time
+#  name: travel_to_work  
+#  origin: !secret home_adress 
+#  destination:  !secret work_adress
+#  region: 'EU'
+
+#- platform: waze_travel_time
+#  name: travel_from_work  
+#  origin: !secret work_adress
+#  destination:  !secret home_adress  
+#  region: 'EU'
+    
+#People sensor
+- platform: template
+  sensors:
+    morten_status:
+      entity_id: input_select.morten_status_dropdown
+      value_template: '{{ states.input_select.morten_status_dropdown.state }}'
+      friendly_name: 'Morten'
+      entity_picture_template: !secret morten_pic
+    helen_status:
+      entity_id: input_select.helen_status_dropdown
+      value_template: '{{ states.input_select.helen_status_dropdown.state }}'
+      friendly_name: 'Helén'
+      entity_picture_template: !secret helen_pic
+    karoline_status:
+      entity_id: input_select.karoline_status_dropdown
+      value_template: '{{ states.input_select.karoline_status_dropdown.state }}'
+      friendly_name: 'Karoline'
+      entity_picture_template: !secret karoline_pic
+    emil_status:
+      entity_id: input_select.emil_status_dropdown
+      value_template: '{{ states.input_select.emil_status_dropdown.state }}'
+      friendly_name: 'Emil'
+      entity_picture_template: !secret emil_pic
+    tobias_status:
+      entity_id: input_select.tobias_status_dropdown
+      value_template: '{{ states.input_select.tobias_status_dropdown.state }}'
+      friendly_name: 'Tobias'
+      entity_picture_template: !secret tobias_pic
+    ole_status:
+      entity_id: input_select.ole_status_dropdown
+      value_template: '{{ states.input_select.ole_status_dropdown.state }}'
+      friendly_name: 'Ole'
+
+
+#uptime sensor
+- platform: uptime
+  name: Time Online
+  unit_of_measurement: hours
+    
+#- platform: yweather
+#  monitored_conditions:
+#    - weather
+#    - weather_current
+#    - temp_min
+#    - temp_max
+#    - wind_speed
+#    - pressure
+#    - visibility
+#    - humidity
+#    - temperature
+
+
+- platform: systemmonitor
+  resources:
+    - type: disk_use_percent
+      arg: /home
+    - type: memory_free
+    - type: processor_use
+
+- platform: mqtt
+  name: Bridge state
+  state_topic: "zigbee2mqtt/bridge/state"
+  icon: mdi:router-wireless
+
+- platform: template
+  sensors:
+    2_livingroom_smoke_alarm:
+      friendly_name: 'Røykvarsler'
+      value_template: >-
+        {% if is_state("sensor.2_livingroom_smoke_sensor_smoke_2", "255") %}
+          Alarm utløst røyk
+        {% elif is_state("sensor.2_livingroom_smoke_sensor_heat_2", "255") %}
+          Alarm utløst varme          
+        {% elif is_state("sensor.2_livingroom_smoke_sensor_burglar", "3") %}
+          Ikke montert
+        {% else %}
+          Normal
+        {% endif %}
+    1_hall_smoke_alarm:
+      friendly_name: 'Røykvarsler'
+      value_template: >-
+        {% if is_state("sensor.1_hall_smoke_sensor_smoke_2", "255") %}
+          Alarm utløst røyk
+        {% elif is_state("sensor.1_hall_smoke_sensor_heat_2", "255") %}
+          Alarm utløst varme          
+        {% elif is_state("sensor.1_hall_smoke_sensor_burglar", "3") %}
+          Ikke montert
+        {% else %}
+          Normal
+        {% endif %}
+
+
+#- platform: nordpool
+#  currency: 'NOK'
+#  region: 'Oslo'
+#  name: "Elspot kWh"
+#  offset: '02:00:00'
+
+#- platform: template
+#  sensors:  
+#    total_power_usage:
+#      value_template: >-  
+#        '{{ ((states(sensor.1_bathroom_fan_power.state)|float) + 
+#        (states(sensor.1_bathroom_light_power.state)|float) + 
+#        (states(sensor.1_livingroom_spotlights_power.state)|float) + 
+#        (states(sensor.1_washingroom_light_power.state)|float) + 
+#        (states(sensor.2_bathroom_fan_power.state)|float) + 
+#        (states(sensor.2_bathroom_light_power.state)|float) + 
+#        (states(sensor.1_washingroom_fan_power.state)|float)) | round(1) }}'
+#      friendly_name: 'Total Effekt Forbruk'
+#      unit_of_measurement: 'w'
+

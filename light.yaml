@@ -1,0 +1,45 @@
+- platform: rfxtrx
+  automatic_add: true
+  devices: 
+    0b1100040231a5bf01000080:
+      name: 1_kitchen_light
+- platform: switch
+  name: 1_livingroom_light
+  entity_id: switch.1_livingroom_light
+- platform: switch
+  name: 1_kitchen_sideboard
+  entity_id: switch.1_kitchen_sideboard
+- platform: switch
+  name: 1_bathroom_light_switch
+  entity_id: switch.1_bathroom_light_switch
+- platform: switch
+  name: 1_washingroom_light_switch
+  entity_id: switch.1_washingroom_light_switch
+- platform: switch
+  name: 1_hall_closet_light
+  entity_id: switch.1_hall_closet_switch
+- platform: switch
+  name: 2_bathroom_light_switch
+  entity_id: switch.2_bathroom_light_switch
+- platform: switch
+  name: 2_bedroom_hm_switch
+  entity_id: switch.2_bedroom_hm_switch
+- platform: switch
+  name: garage_lights_switch
+  entity_id: switch.garage_lights_switch
+- platform: switch
+  name: garage_spotlights
+  entity_id: switch.garage_spotlights
+- platform: switch
+  name: garage_attic_lights
+  entity_id: switch.garage_attic_lights
+
+
+- platform: group
+  name: 2 Livingroom spotlights
+  entities:
+    - light.2_livingroom_spotlight_1
+    - light.2_livingroom_spotlight_2
+    - light.2_livingroom_spotlight_3
+    - light.2_livingroom_spotlight_4
+    - light.2_livingroom_spotlight_5

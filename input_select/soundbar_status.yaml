@@ -1,0 +1,14 @@
+soundbar_status_dropdown:
+  name: soundbar_status
+  options:
+    - on
+    - off
+  initial: off
+soundbar_source_dropdown:
+  name: soundbar_source
+  options:
+    - optical
+    - hdmi
+    - bluetooth
+    - aux
+  initial: optical   

@@ -1,0 +1,170 @@
+- platform: template
+  sensors:
+    noen_hjemme:
+      value_template: >-
+        {{ is_state('sensor.morten_status', 'Hjemme')
+          or is_state('sensor.helen_status', 'Hjemme')
+          or is_state('sensor.karoline_status', 'Hjemme')
+          or is_state('sensor.emil_status', 'Hjemme')
+          or is_state('sensor.tobias_status', 'Hjemme')
+          or is_state('sensor.ole_status', 'Hjemme')
+          or is_state('sensor.morten_status', 'Akkurat reist')
+          or is_state('sensor.helen_status', 'Akkurat reist')
+          or is_state('sensor.karoline_status', 'Akkurat reist')
+          or is_state('sensor.emil_status', 'Akkurat reist')
+          or is_state('sensor.tobias_status', 'Akkurat reist')
+          or is_state('sensor.morten_status', 'Akkurat kommet hjem')
+          or is_state('sensor.helen_status', 'Akkurat kommet hjem')
+          or is_state('sensor.karoline_status', 'Akkurat kommet hjem')
+          or is_state('sensor.emil_status', 'Akkurat kommet hjem')
+          or is_state('sensor.tobias_status', 'Akkurat kommet hjem')}}
+
+- platform: template
+  sensors:
+    noen_hjemme_absolutt:
+      value_template: >-
+        {{ is_state('sensor.morten_status', 'Hjemme')
+          or is_state('sensor.helen_status', 'Hjemme')
+          or is_state('sensor.karoline_status', 'Hjemme')
+          or is_state('sensor.emil_status', 'Hjemme')
+          or is_state('sensor.tobias_status', 'Hjemme')
+          or is_state('sensor.ole_status', 'Hjemme')
+          or is_state('sensor.morten_status', 'Akkurat kommet hjem')
+          or is_state('sensor.helen_status', 'Akkurat kommet hjem')
+          or is_state('sensor.karoline_status', 'Akkurat kommet hjem')
+          or is_state('sensor.emil_status', 'Akkurat kommet hjem')
+          or is_state('sensor.tobias_status', 'Akkurat kommet hjem')}}
+
+- platform: template
+  sensors:
+    noen_voksne_hjemme:
+      value_template: >-
+        {{ is_state('sensor.morten_status', 'Hjemme')
+          or is_state('sensor.helen_status', 'Hjemme')
+          or is_state('sensor.morten_status', 'Akkurat kommet hjem')
+          or is_state('sensor.helen_status', 'Akkurat kommet hjem')}}
+
+- platform: template
+  sensors:
+    alle_bortreist:
+      value_template: >-
+        {{ is_state('sensor.morten_status', 'Bortreist')
+          and is_state('sensor.helen_status', 'Bortreist')
+          and is_state('sensor.karoline_status', 'Bortreist')
+          and is_state('sensor.emil_status', 'Bortreist')
+          and is_state('sensor.tobias_status', 'Bortreist')}}
+
+
+- platform: template
+  sensors:
+    garden_robomow:
+      value_template: >-
+        {{ is_state('binary_sensor.garden_robomow_home_sensor', 'off')}}
+
+- platform: bayesian
+  prior: 0.5
+  name: 'Morten Presence'
+  probability_threshold: 0.8
+  observations:
+    - entity_id: 'device_tracker.morten_mobile'
+      prob_given_true: 0.9
+      prob_given_false: 0.2
+      platform: 'state'
+      to_state: 'home'
+    - entity_id: 'device_tracker.mortens_app'
+      prob_given_true: 0.9
+      prob_given_false: 0.2
+      platform: 'state'
+      to_state: 'home'
+
+- platform: bayesian
+  prior: 0.5
+  name: 'Helen Presence'
+  probability_threshold: 0.8
+  observations:
+    - entity_id: 'device_tracker.helen_mobile'
+      prob_given_true: 0.9
+      prob_given_false: 0.2
+      platform: 'state'
+      to_state: 'home'
+    - entity_id: 'device_tracker.helen_app'
+      prob_given_true: 0.9
+      prob_given_false: 0.5
+      platform: 'state'
+      to_state: 'home'
+
+- platform: bayesian
+  prior: 0.5
+  name: 'Karoline Presence'
+  probability_threshold: 0.8
+  observations:
+    - entity_id: 'device_tracker.karoline_mobile'
+      prob_given_true: 0.9
+      prob_given_false: 0.2
+      platform: 'state'
+      to_state: 'home'
+    - entity_id: 'device_tracker.karoline_app'
+      prob_given_true: 0.9
+      prob_given_false: 0.5
+      platform: 'state'
+      to_state: 'home'
+
+- platform: bayesian
+  prior: 0.5
+  name: 'Emil Presence'
+  probability_threshold: 0.8
+  observations:
+    - entity_id: 'device_tracker.emil_mobile'
+      prob_given_true: 0.9
+      prob_given_false: 0.2
+      platform: 'state'
+      to_state: 'home'
+    - entity_id: 'device_tracker.emil_app'
+      prob_given_true: 0.9
+      prob_given_false: 0.5
+      platform: 'state'
+      to_state: 'home'
+
+- platform: bayesian
+  prior: 0.5
+  name: 'Tobias Presence'
+  probability_threshold: 0.8
+  observations:
+    - entity_id: 'device_tracker.tobias_mobile'
+      prob_given_true: 0.9
+      prob_given_false: 0.2
+      platform: 'state'
+      to_state: 'home'
+    - entity_id: 'device_tracker.tobias_app'
+      prob_given_true: 0.9
+      prob_given_false: 0.5
+      platform: 'state'
+      to_state: 'home'
+
+- platform: template
+  sensors:
+    noen_voksne_hjemme_person:
+      value_template: >-
+        {{ is_state('person.morten', 'home')
+          or is_state('person.helen', 'home')}}
+
+- platform: template
+  sensors:
+    noen_hjemme_person:
+      value_template: >-
+        {{ is_state('person.morten', 'home')
+          or is_state('person.helen', 'home')
+          or is_state('person.karoline', 'home')
+          or is_state('person.emil', 'home')
+          or is_state('person.tobias', 'home')}}
+
+- platform: workday
+  name: workday_today
+  country: 'NO'
+- platform: workday
+  name: workday_tomorrow
+  country: 'NO'
+  days_offset: 1
+
+
+

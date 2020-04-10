@@ -1,0 +1,169 @@
+homeassistant:
+  customize: !include customize.yaml
+  auth_providers:
+    - type: homeassistant
+  whitelist_external_dirs:
+    - '/config/snapshot'
+frontend:
+  themes: !include_dir_merge_named themes
+  javascript_version: latest
+  extra_html_url:
+    - /local/lovelace.html
+    - /local/custom_ui/custom-weather-animated.html
+    - /local/custom_ui/custom-weather-card.html
+    
+config:
+default_config:
+updater:
+discovery:
+ssdp:
+zeroconf:
+conversation:
+history:
+logbook:
+sun:
+map:
+ios:
+system_health:
+person:
+device_tracker:
+webhook:
+#stream: 
+ffmpeg:
+apple_tv:
+zha_map:
+#remote_homeassistant:
+#  instances:
+#  - host: !secret host_fjellbu
+#    port: 443
+#    secure: true  
+#    access_token: !secret access_token_fjellbu
+#    entity_prefix: "fjellbu_"
+#    include:
+#      entities:
+#      - input_select.scene_status_dropdown
+#      - sensor.ute_temperature
+#      - sensor.ute_humidity
+#      - sensor.ute_pressure
+#      - sensor.stue_temperature
+#      - sensor.stue_humidity
+#      - sensor.toalett_temperature
+#      - sensor.litesov_temperature
+#      - sensor.soverom_temperature
+#      - sensor.kjeller_temperaturå 80
+#      - binary_sensor.front_door_sensor
+#      - switch.toilet_heater
+#      - switch.livingroom_heater
+#      - switch.cable_heating_toilet_switch
+#      - switch.cable_heating_well_switch
+#      - switch.outdoor_lights_switch
+#      - climate.hall_thermostat_heating
+#      - climate.livingroom_thermostat_heating
+#      - climate.bedroom_thermostat_heating
+#      - sensor.time_online
+#      - binary_sensor.huawei_b525s_23a_mobile_connection
+#      - sensor.huawei_b525s_23a_wan_ip_address
+#      - sensor.huawei_b525s_23a_rssi
+#      - sensor.huawei_b525s_23a_rsrp
+#      - sensor.huawei_b525s_23a_rsrq
+#      - sensor.huawei_b525s_23a_sinr
+
+recorder:
+  purge_keep_days: 5
+  
+http:
+  base_url: !secret ha_url
+
+#logs
+logger:
+  default: error
+
+# Text to speech
+tts:
+  - platform: google_translate
+    language: 'no'
+
+#Add RXcom
+rfxtrx:
+  device: /dev/ttyUSB0
+  debug: true
+
+# Add Xiaomi gateway
+xiaomi_aqara:
+  discovery_retry: 5
+  gateways:
+    - key: !secret xiaomi_key
+
+#Add verisure
+verisure:
+  username: !secret verisure_user
+  password: !secret verisure_password
+  code_digits: 6
+
+#Add airquality sensor  
+air_quality:
+  - platform: norway_air
+
+#Add Speedtest
+speedtestdotnet:
+  scan_interval:
+    minutes: 30
+  monitored_conditions:
+    - ping
+    - download
+    - upload
+    
+# Add asus router
+asuswrt:
+  host: !secret asus_host
+  username: !secret asus_username
+  password: !secret asus_password 
+  sensors:
+
+#add IFTTT
+ifttt:
+  key: !secret ifttt_key
+  
+#Add Influxdb
+influxdb:
+  host: a0d7b954-influxdb
+  port: 8086
+  database: homeassistant
+  username: !secret influxuser
+  password: !secret influxpswd
+  max_retries: 3
+
+#add YR meteogram and Garage Camera
+camera:
+  - platform: generic
+    name: Meteogram
+    still_image_url: https://www.yr.no/place/Norway/Akershus/Ullensaker/Jessheim/meteogram.svg
+    content_type: 'image/svg+xml'
+  - platform: mjpeg
+    name: Garasje
+    mjpeg_url: !secret garage_cam_ip_mjpeg
+    username: !secret garage_cam_user
+    password: !secret garage_cam_pwd
+
+#Add Car
+nissan_leaf:
+  username: !secret nissan_user
+  password: !secret nissan_pwd
+  region: NE
+  
+automation: !include automations.yaml
+script: !include scripts.yaml
+switch: !include switch.yaml
+light: !include light.yaml
+cover: !include cover.yaml
+sensor: !include sensor.yaml
+scene: !include scenes.yaml
+binary_sensor: !include binary_sensor.yaml
+input_select: !include_dir_merge_named input_select
+timer: !include timer.yaml
+input_boolean: !include input_boolean.yaml
+remote: !include remote.yaml
+climate: !include climate.yaml
+media_player: !include media_player.yaml
+alert: !include alert.yaml
+

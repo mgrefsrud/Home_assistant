@@ -1,0 +1,7 @@
+tv_source_dropdown:
+  name: tv_source
+  options:
+    - hdmi 1
+    - hdmi 2
+    - hdmi 3
+  initial: hdmi 2 

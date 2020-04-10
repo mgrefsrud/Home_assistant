@@ -1,0 +1,8 @@
+port_tesla:
+  duration: '00:00:10'
+port_nissan:
+  duration: '00:00:10'
+zigbee_permit_join:
+    name: Time remaining
+    duration: 600 # Updated this to the number of seconds you wish
+  

@@ -1,0 +1,145 @@
+- id: '1574430016509'
+  name: Normal
+  entities:
+    input_select.scene_status_dropdown:
+      state: Normal
+    light.1_hall_spotlights_level:
+      brightness: 255
+      state: 'on'
+    light.1_kitchen_light:
+      brightness: 255
+      state: 'on'
+    light.1_kitchen_sideboard:
+      state: 'on'
+    light.1_livingroom_light:
+      state: 'on'
+    light.1_livingroom_spotlights_level:
+      brightness: 255
+      state: 'on'
+    light.2_livingroom_spotlights:
+      state: 'on'
+      brightness: 255
+    light.2_livingroom_staircase_dimmer_module_level:
+      brightness: 200
+      state: 'on'
+- id: '1574430248842'
+  name: Morgen
+  entities:
+    input_select.scene_status_dropdown:
+      state: Morgen
+    light.1_hall_spotlights_level:
+      brightness: 98
+      state: 'on'
+    light.1_kitchen_light:
+      brightness: 150
+      state: 'on'
+    light.1_livingroom_spotlights_level:
+      brightness: 49
+      state: 'on'
+    switch.1_kitchen_sideboard:
+      state: 'on'
+    switch.1_livingroom_light:
+      state: 'on'
+    light.2_livingroom_spotlights:
+      state: 'on'
+      brightness: 100
+    light.2_livingroom_staircase_dimmer_module_level:
+      brightness: 150
+      state: 'on'
+- id: '1574430345484'
+  name: Kveld
+  entities:
+    input_select.scene_status_dropdown:
+      state: Kveld
+    light.1_hall_spotlights_level:
+      brightness: 49
+      state: 'on'
+    light.1_kitchen_light:
+      brightness: 100
+      state: 'on'
+    light.1_livingroom_spotlights_level:
+      brightness: 88
+      state: 'on'
+    switch.1_kitchen_sideboard:
+      state: 'on'
+    switch.1_livingroom_light:
+      state: 'on'
+    light.2_livingroom_spotlights:
+      state: 'on'
+      brightness: 100
+    light.2_livingroom_staircase_dimmer_module_level:
+      brightness: 150
+      state: 'on'
+- id: '1574430404428'
+  name: Natta
+  entities:
+    input_select.scene_status_dropdown:
+      state: Natta
+    light.1_kitchen_light:
+      brightness: 2
+      state: 'on'
+    light.1_livingroom_spotlights_level:
+      state: 'off'
+    light.1_hall_spotlights_level:
+      state: 'off'
+    switch.1_livingroom_light:
+      state: 'off'
+    switch.1_kitchen_sideboard:
+      state: 'off'
+    light.2_livingroom_spotlights:
+      state: 'on'
+      brightness: 50
+    light.2_livingroom_staircase_dimmer_module_level:
+      brightness: 100
+      state: 'on'
+- id: '1574430556335'
+  name: Ingen_hjemme
+  entities:
+    input_select.scene_status_dropdown:
+      state: Ingen_hjemme
+    light.1_kitchen_light:
+      brightness: 50
+      state: 'on'
+    light.1_livingroom_spotlights_level:
+      brightness: 50
+      state: 'on'
+    light.1_hall_spotlights_level:
+      brightness: 50
+      state: 'on'
+    switch.1_livingroom_light:
+      state: 'off'
+    switch.1_kitchen_sideboard:
+      state: 'off'
+    light.2_livingroom_spotlights:
+      state: 'off'
+    light.2_livingroom_staircase_dimmer_module_level:
+      brightness: 50
+      state: 'on'
+- id: '1574430700769'
+  name: Film
+  entities:
+    input_select.scene_status_dropdown:
+      state: Film
+    light.1_kitchen_light:
+      brightness: 2
+      state: 'on'
+    light.1_livingroom_spotlights_level:
+      brightness: 15
+      state: 'on'
+    light.1_hall_spotlights_level: 
+      state: 'off'
+    switch.1_livingroom_light: 
+      state: 'off'
+    switch.1_kitchen_sideboard: 
+      state: 'off'    
+    light.2_livingroom_staircase_dimmer_module_level:
+      brightness: 100
+      state: 'on'
+- id: '1574430087366'
+  name: Strikke
+  entities:
+    input_select.scene_status_dropdown:
+      state: Strikke
+    light.1_livingroom_spotlights_level:
+      brightness: 255
+      state: 'on'

@@ -1,0 +1,51 @@
+1_hall_smoke_detected:
+  name:  Brannalarmen nede er utløst for røyk
+  message: Brannalarmen nede er utløst for røyk
+  done_message: Brannalarmen nede er nullstilt
+  entity_id: sensor.1_hall_smoke_sensor_smoke_2
+  state: '255'
+  repeat: 1
+  can_acknowledge: true
+  skip_first: false
+  notifiers:
+    - ios_helen_ios
+    - mobile_app_morten_iphone
+
+2_livingroom_smoke_detected:
+  name: Brannalarmen oppe er utløst for røyk
+  message: Brannalarmen oppe er utløst for røyk
+  done_message: Brannalarmen oppe er nullstilt
+  entity_id: sensor.2_livingroom_smoke_sensor_smoke_2
+  state: '255'
+  repeat: 1
+  can_acknowledge: true
+  skip_first: false
+  notifiers:
+    - ios_helen_ios
+    - mobile_app_morten_iphone 
+
+1_hall_heat_detected:
+  name: Brannalarmen nede er utløst for varme
+  message: Brannalarmen nede er utløst for varme
+  done_message: Brannalarmen nede er nullstilt
+  entity_id: sensor.1_hall_smoke_sensor_heat_2
+  state: '255'
+  repeat: 1
+  can_acknowledge: true
+  skip_first: false
+  notifiers:
+    - ios_helen_ios
+    - mobile_app_morten_iphone
+
+2_livingroom_heat_detected:
+  name: Brannalarmen oppe er utløst for varme
+  message: Brannalarmen oppe er utløst for varme
+  done_message: Brannalarmen oppe er nullstilt
+  entity_id: sensor.2_livingroom_smoke_sensor_heat_2
+  state: '255'
+  repeat: 1
+  can_acknowledge: true
+  skip_first: false
+  notifiers:
+    - ios_helen_ios
+    - mobile_app_morten_iphone       

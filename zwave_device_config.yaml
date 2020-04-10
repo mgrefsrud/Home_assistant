@@ -1,0 +1,327 @@
+sensor.1_bathroom_sensor_sourcenodeid:
+  ignored: true
+  polling_intensity: 0
+sensor.1_bathroom_sensor_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.1_bathroom_sensor_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.2_bathroom_sensor_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.2_bathroom_sensor_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.2_bathroom_sensor_sourcenodeid:
+  ignored: true
+  polling_intensity: 0
+sensor.1_washingroom_sensor_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.1_washingroom_sensor_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.1_washingroom_sensor_sourcenodeid:
+  ignored: true
+  polling_intensity: 0
+sensor.1_hall_spotlights_sourcenodeid:
+  ignored: true
+  polling_intensity: 0
+sensor.1_hall_spotlights_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.1_hall_spotlights_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.2_bedroom_hm_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.2_bedroom_hm_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.2_bedroom_hm_sourcenodeid:
+  ignored: true
+  polling_intensity: 0
+sensor.garage_lights_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.garage_lights_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.garage_lights_sourcenodeid:
+  ignored: true
+  polling_intensity: 0
+sensor.1_livingroom_spotlights_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.1_livingroom_spotlights_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.1_livingroom_spotlights_sourcenodeid:
+  ignored: true
+  polling_intensity: 0
+sensor.1_livingroom_spotlights_exporting:
+  ignored: true
+  polling_intensity: 0
+sensor.2_bathroom_light_fan_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.2_bathroom_light_fan_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.2_bathroom_light_exporting:
+  ignored: true
+  polling_intensity: 0
+sensor.2_bathroom_fan_exporting:
+  ignored: true
+  polling_intensity: 0
+sensor.2_bathroom_light_fan_sourcenodeid:
+  ignored: true
+  polling_intensity: 0
+sensor.1_bathroom_fan_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.1_bathroom_fan_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.1_bathroom_fan_exporting:
+  ignored: true
+  polling_intensity: 0
+sensor.1_bathroom_light_exporting:
+  ignored: true
+  polling_intensity: 0
+sensor.1_bathroom_light_fan_sourcenodeid:
+  ignored: true
+  polling_intensity: 0
+sensor.1_washingroom_light_fan_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.1_washingroom_light_fan_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.1_washingroom_light_exporting:
+  ignored: true
+  polling_intensity: 0
+sensor.1_washingroom_fan_exporting:
+  ignored: true
+  polling_intensity: 0
+sensor.1_washingroom_light_fan_sourcenodeid:
+  ignored: true
+  polling_intensity: 0
+sensor.1_hall_thermostat_exporting:
+  ignored: true
+  polling_intensity: 0
+sensor.1_bathroom_thermostat_exporting:
+  ignored: true
+  polling_intensity: 0
+climate.1_hall_thermostat_energy_heat:
+  ignored: true
+  polling_intensity: 0
+climate.1_bathroom_thermostat_energy_heat:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgsd002_smoke_sensor_sourcenodeid:
+  ignored: true
+  polling_intensity: 0
+sensor.2_livingroom_smoke_sensor_sourcenodeid:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgsd002_smoke_sensor_power_management:
+  ignored: true
+  polling_intensity: 0
+climate.thermofloor_as_heatit_thermostat_tf_021_energy_heat:
+  ignored: true
+  polling_intensity: 0
+sensor.thermofloor_as_heatit_thermostat_tf_021_exporting:
+  ignored: true
+  polling_intensity: 0
+climate.thermofloor_as_heatit_thermostat_tf_021_energy_heat_2:
+  ignored: true
+  polling_intensity: 0
+sensor.thermofloor_as_heatit_thermostat_tf_021_exporting_2:
+  ignored: true
+  polling_intensity: 0
+sensor.aeotec_zw100_multisensor_6_sourcenodeid:
+  ignored: true
+  polling_intensity: 0
+sensor.aeotec_zw100_multisensor_6_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.aeotec_zw100_multisensor_6_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.aeotec_zw100_multisensor_6_sourcenodeid_2:
+  ignored: true
+  polling_intensity: 0
+sensor.aeotec_zw100_multisensor_6_alarm_level_2:
+  ignored: true
+  polling_intensity: 0
+sensor.aeotec_zw100_multisensor_6_alarm_type_2:
+  ignored: true
+  polling_intensity: 0
+sensor.aeotec_zw100_multisensor_6_alarm_level_3:
+  ignored: true
+  polling_intensity: 0
+sensor.aeotec_zw100_multisensor_6_alarm_type_3:
+  ignored: true
+  polling_intensity: 0
+sensor.aeotec_zw100_multisensor_6_sourcenodeid_3:
+  ignored: true
+  polling_intensity: 0
+sensor.everspring_ad146_in_wall_dimmer_module_sourcenodeid:
+  ignored: true
+  polling_intensity: 0
+sensor.everspring_ad146_in_wall_dimmer_module_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.everspring_ad146_in_wall_dimmer_module_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.everspring_an179_in_wall_onoff_module_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.everspring_an179_in_wall_onoff_module_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.everspring_an179_in_wall_onoff_module_sourcenodeid:
+  ignored: true
+  polling_intensity: 0
+sensor.everspring_an179_in_wall_onoff_module_alarm_level_2:
+  ignored: true
+  polling_intensity: 0
+sensor.everspring_an179_in_wall_onoff_module_alarm_type_2:
+  ignored: true
+  polling_intensity: 0
+sensor.everspring_an179_in_wall_onoff_module_sourcenodeid_2:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgd212_dimmer_2_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgd212_dimmer_2_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgd212_dimmer_2_exporting:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgd212_dimmer_2_sourcenodeid:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgs223_double_relay_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgs223_double_relay_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgs223_double_relay_exporting:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgs223_double_relay_exporting_2:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgs223_double_relay_sourcenodeid:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgs223_double_relay_alarm_level_2:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgs223_double_relay_alarm_type_2:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgs223_double_relay_exporting_3:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgs223_double_relay_exporting_4:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgs223_double_relay_sourcenodeid_2:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgs223_double_relay_alarm_level_3:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgs223_double_relay_alarm_type_3:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgs223_double_relay_exporting_5:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgs223_double_relay_exporting_6:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgs223_double_relay_sourcenodeid_3:
+  ignored: true
+  polling_intensity: 0
+sensor.thermofloor_as_unknown_type_0003_id_0201_temperature:
+  ignored: true
+  polling_intensity: 0
+sensor.thermofloor_as_heatit_thermostat_tf_021_energy:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgsd002_smoke_sensor_sourcenodeid_2:
+  ignored: true
+  polling_intensity: 0
+sensor.1_hall_spotlights_sourcenodeid_2:
+  ignored: true
+  polling_intensity: 0
+sensor.1_hall_spotlights_power_management:
+  ignored: true
+  polling_intensity: 0
+sensor.1_hall_spotlights_alarm_type_2:
+  ignored: true
+  polling_intensity: 0
+sensor.1_hall_spotlights_alarm_level_2:
+  ignored: true
+  polling_intensity: 0
+sensor.1_livingroom_spotlights_system:
+  ignored: true
+  polling_intensity: 0
+sensor.1_washingroom_exporting:
+  ignored: true
+  polling_intensity: 0
+sensor.1_washingroom_light_fan_power_management:
+  ignored: true
+  polling_intensity: 0
+sensor.2_bathroom_light_fan_power_management:
+  ignored: true
+  polling_intensity: 0
+sensor.1_livingroom_spotlights_power_management:
+  ignored: true
+  polling_intensity: 0
+sensor.thermofloor_as_heatit_thermostat_tf_021_exporting_3:
+  ignored: true
+  polling_intensity: 0
+sensor.thermofloor_as_heatit_thermostat_tf_021_energy_2:
+  ignored: true
+  polling_intensity: 0
+sensor.2_bedroom_hm_power_management:
+  ignored: true
+  polling_intensity: 0
+sensor.2_livingroom_smoke_sensor_power_management:
+  ignored: true
+  polling_intensity: 0
+sensor.2_livingroom_staircase_dimmer_module_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.2_livingroom_staircase_dimmer_module_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.2_livingroom_staircase_dimmer_module_power_management:
+  ignored: true
+  polling_intensity: 0
+sensor.2_livingroom_staircase_dimmer_module_sourcenodeid:
+  ignored: true
+  polling_intensity: 0
+sensor.aeon_labs_zw100_multisensor_6_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.aeon_labs_zw100_multisensor_6_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.aeon_labs_zw100_multisensor_6_sourcenodeid:
+  ignored: true
+  polling_intensity: 0
+sensor.1_bathroom_thermostat_exporting_2:
+  ignored: true
+  polling_intensity: 0

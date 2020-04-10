@@ -1,0 +1,96 @@
+- platform: universal
+  name: 1 Livingroom tv
+  commands:
+    turn_on:
+      service: script.turn_on
+      data: 
+        entity_id: script.tv_on_off
+    turn_off:
+      service: script.turn_on
+      data: 
+        entity_id: script.tv_on_off
+    select_source:
+      service: script.turn_on
+      data_template:
+        entity_id: >
+          {% if source ==  'hdmi 1' %}
+            script.tv_hdmi_1
+          {% elif source ==  'hdmi 2' %}
+            script.tv_hdmi_2
+          {% elif source == 'hdmi 3' %}
+            script.tv_hdmi_3
+          {% else %} 
+            script.tv_on_off
+          {% endif %}
+  attributes:
+    state: media_player.1_livingroom_ue55f8000
+    source: input_select.tv_source_dropdown
+    source_list: input_select.tv_source_dropdown|options
+  
+- platform: universal
+  name: 1_livingroom_soundbar
+  commands:
+    turn_on:
+      service: switch.turn_on
+      data: 
+        entity_id: switch.1_livingroom_soundbar
+    turn_off:
+      service: switch.turn_off
+      data: 
+        entity_id: switch.1_livingroom_soundbar
+    volume_up:
+      service: script.turn_on
+      data: 
+        entity_id: script.soundbar_volume_up
+    volume_down:
+      service: script.turn_on
+      data: 
+        entity_id: script.soundbar_volume_down
+    volume_mute:
+      service: switch.turn_on
+      data: 
+        entity_id: switch.1_livingroom_soundbar_mute
+    select_source:
+      service: script.turn_on
+      data_template:
+        entity_id: >
+          {% if source ==  'optical' %}
+            script.soundbar_optical
+          {% elif source ==  'hdmi' %}
+            script.soundbar_hdmi
+          {% elif source == 'aux' %}
+            script.soundbar_aux
+          {% elif source == 'bluetooth' %}
+            script.soundbar_bluetooth
+          {% else %} 
+            script.soundbar_off
+          {% endif %}
+  attributes:
+    state: switch.1_livingroom_soundbar
+    source: input_select.soundbar_source_dropdown
+    source_list: input_select.soundbar_source_dropdown|options
+    
+#- platform: spotify
+#  client_id: !secret spotify_client_id
+#  client_secret: !secret spotify_client_secret
+
+- platform: universal
+  name: 1_livingroom_blueray
+  commands:
+    turn_on:
+      service: script.turn_on
+      data: 
+        entity_id: script.blueray_on_off
+    turn_off:
+      service: script.turn_on
+      data: 
+        entity_id: script.blueray_on_off
+#    play:
+#      service: script.turn_on
+#      data: 
+#        entity_id: script.blueray_play
+#    pause:
+#      service: script.turn_on
+#      data: 
+#        entity_id: script.blueray_pause
+  

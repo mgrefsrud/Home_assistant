@@ -1,0 +1,19 @@
+k_heater_status:
+  name: K_heater
+  options:
+    - On
+    - Off
+  initial: On
+  
+t_heater_status:
+  name: T_heater
+  options:
+    - On
+    - Off
+  initial: On
+heatpump: 
+  name: heatpump  
+  options:
+    - On
+    - Off
+  initial: On

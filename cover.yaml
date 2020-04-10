@@ -1,0 +1,64 @@
+# garage door cover
+#- platform: template
+#  covers:
+#    garage_door_nissan:
+#      friendly_name: "Garasjeport Nissan"
+#      value_template: "{{ states('sensor.port_nissan')|float > 0 }}"
+#      open_cover:
+#        service: switch.turn_on
+#        entity_id: switch.garage_nissan
+#      close_cover:
+#        service: switch.turn_on
+#        entity_id: switch.garage_nissan
+#      stop_cover:
+#        service: switch.turn_on
+#        entity_id: switch.garage_nissan
+#      icon_template: >
+#          {% if is_state('binary_sensor.garage_nissan_door_window_sensor', 'off') %}
+#            mdi:garage
+#          {% else %}
+#            mdi:garage-open
+#          {% endif %}  
+
+#- platform: template
+#  covers:
+#    garage_door_tesla:
+#      friendly_name: "Garasjeport Tesla"
+#      value_template: "{{ states('sensor.port_tesla')|float > 0 }}"
+#      open_cover:
+#        service: switch.turn_on
+#        entity_id: switch.garage_tesla
+#      close_cover:
+#        service: switch.turn_on
+#        entity_id: switch.garage_tesla
+#      stop_cover:
+#        service: switch.turn_on
+#        entity_id: switch.garage_tesla
+#      icon_template: >
+#          {% if is_state('binary_sensor.garage_tesla_door_window_sensor', 'off') %}
+#            mdi:garage
+#          {% else %}
+#            mdi:garage-open
+#          {% endif %}  
+
+- platform: mqtt
+  name: "garage_door_nissan"
+  state_topic: "cmnd/garagestate_nissan/POWER2"
+  command_topic: "cmnd/garage_nissan/POWER"
+  payload_open: "ON"
+  payload_close: "ON"
+  payload_stop: "ON"
+  state_open: "ON"
+  state_closed: "OFF"
+  optimistic: false
+  
+- platform: mqtt
+  name: "garage_door_tesla"
+  state_topic: "cmnd/garagestate_tesla/POWER2"
+  command_topic: "cmnd/garage_tesla/POWER"
+  payload_open: "ON"
+  payload_close: "ON"
+  payload_stop: "ON"
+  state_open: "ON"
+  state_closed: "OFF"
+  optimistic: false
