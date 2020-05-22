@@ -1,0 +1,104 @@
+morning:
+  name: Morgen
+  has_date: false
+  has_time: true
+morning_not_workday:
+  name: Morgen fridag
+  has_date: false
+  has_time: true
+day_not_workday:
+  name: Dagtid fridag
+  has_date: false
+  has_time: true 
+day:
+  name: Dagtid
+  has_date: false
+  has_time: true   
+evening:
+  name: Kveld
+  has_date: false
+  has_time: true  
+evening_not_workday:
+  name: Kveld før fridag
+  has_date: false
+  has_time: true  
+night:
+  name: Natt
+  has_date: false
+  has_time: true  
+night_not_workday:
+  name: Natt før fridag
+  has_date: false
+  has_time: true  
+bedroom_k_morning_workday:
+  name: Morgen Arbeidsdag K
+  has_date: false
+  has_time: true    
+bedroom_k_morning_non_workday:
+  name: Morgen fridag K
+  has_date: false
+  has_time: true    
+bedroom_k_evening_workday:
+  name: Kveld arbeidsdag K
+  has_date: false
+  has_time: true    
+bedroom_k_evening_non_workday:
+  name: Kveld fridag K
+  has_date: false
+  has_time: true    
+bedroom_e_morning_workday:
+  name: Morgen Arbeidsdag E
+  has_date: false
+  has_time: true    
+bedroom_e_morning_non_workday:
+  name: Morgen fridag E
+  has_date: false
+  has_time: true    
+bedroom_e_evening_workday:
+  name: Kveld arbeidsdag E
+  has_date: false
+  has_time: true    
+bedroom_e_evening_non_workday:
+  name: Kveld fridag E
+  has_date: false
+  has_time: true    
+bedroom_t_morning_workday:
+  name: Morgen Arbeidsdag T
+  has_date: false
+  has_time: true    
+bedroom_t_morning_non_workday:
+  name: Morgen fridag T
+  has_date: false
+  has_time: true    
+bedroom_t_evening_workday:
+  name: Kveld arbeidsdag T
+  has_date: false
+  has_time: true    
+bedroom_t_evening_non_workday:
+  name: Kveld fridag T
+  has_date: false
+  has_time: true    
+bedroom_o_morning_workday:
+  name: Morgen Arbeidsdag O
+  has_date: false
+  has_time: true    
+bedroom_o_morning_non_workday:
+  name: Morgen fridag O
+  has_date: false
+  has_time: true    
+bedroom_o_evening_workday:
+  name: Kveld arbeidsdag O
+  has_date: false
+  has_time: true    
+bedroom_o_evening_non_workday:
+  name: Kveld fridag O
+  has_date: false
+  has_time: true    
+thermostats_up_morning:
+  name: Termostater opp morgen
+  has_date: false
+  has_time: true    
+thermostats_down_night:
+  name: Termostater ned natt
+  has_date: false
+  has_time: true    

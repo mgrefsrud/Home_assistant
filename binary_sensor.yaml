@@ -8,16 +8,16 @@
           or is_state('sensor.emil_status', 'Hjemme')
           or is_state('sensor.tobias_status', 'Hjemme')
           or is_state('sensor.ole_status', 'Hjemme')
-          or is_state('sensor.morten_status', 'Akkurat reist')
-          or is_state('sensor.helen_status', 'Akkurat reist')
-          or is_state('sensor.karoline_status', 'Akkurat reist')
-          or is_state('sensor.emil_status', 'Akkurat reist')
-          or is_state('sensor.tobias_status', 'Akkurat reist')
-          or is_state('sensor.morten_status', 'Akkurat kommet hjem')
-          or is_state('sensor.helen_status', 'Akkurat kommet hjem')
-          or is_state('sensor.karoline_status', 'Akkurat kommet hjem')
-          or is_state('sensor.emil_status', 'Akkurat kommet hjem')
-          or is_state('sensor.tobias_status', 'Akkurat kommet hjem')}}
+          or is_state('sensor.morten_status', 'Reist')
+          or is_state('sensor.helen_status', 'Reist')
+          or is_state('sensor.karoline_status', 'Reist')
+          or is_state('sensor.emil_status', 'Reist')
+          or is_state('sensor.tobias_status', 'Reist')
+          or is_state('sensor.morten_status', 'Kommet')
+          or is_state('sensor.helen_status', 'Kommet')
+          or is_state('sensor.karoline_status', 'Kommet')
+          or is_state('sensor.emil_status', 'Kommet')
+          or is_state('sensor.tobias_status', 'Kommet')}}
 
 - platform: template
   sensors:
@@ -29,11 +29,11 @@
           or is_state('sensor.emil_status', 'Hjemme')
           or is_state('sensor.tobias_status', 'Hjemme')
           or is_state('sensor.ole_status', 'Hjemme')
-          or is_state('sensor.morten_status', 'Akkurat kommet hjem')
-          or is_state('sensor.helen_status', 'Akkurat kommet hjem')
-          or is_state('sensor.karoline_status', 'Akkurat kommet hjem')
-          or is_state('sensor.emil_status', 'Akkurat kommet hjem')
-          or is_state('sensor.tobias_status', 'Akkurat kommet hjem')}}
+          or is_state('sensor.morten_status', 'Kommet')
+          or is_state('sensor.helen_status', 'Kommet')
+          or is_state('sensor.karoline_status', 'Kommet')
+          or is_state('sensor.emil_status', 'Kommet')
+          or is_state('sensor.tobias_status', 'Kommet')}}
 
 - platform: template
   sensors:
@@ -41,8 +41,8 @@
       value_template: >-
         {{ is_state('sensor.morten_status', 'Hjemme')
           or is_state('sensor.helen_status', 'Hjemme')
-          or is_state('sensor.morten_status', 'Akkurat kommet hjem')
-          or is_state('sensor.helen_status', 'Akkurat kommet hjem')}}
+          or is_state('sensor.morten_status', 'Kommet')
+          or is_state('sensor.helen_status', 'Kommet')}}
 
 - platform: template
   sensors:
@@ -57,9 +57,9 @@
 
 - platform: template
   sensors:
-    garden_robomow:
+    garden_henry:
       value_template: >-
-        {{ is_state('binary_sensor.garden_robomow_home_sensor', 'off')}}
+        {{ is_state('binary_sensor.garden_henry_home_sensor', 'off')}}
 
 - platform: bayesian
   prior: 0.5
@@ -166,5 +166,11 @@
   country: 'NO'
   days_offset: 1
 
-
-
+- platform: tod
+  name: Natt
+  after: '23:00'
+  before: '07:00'
+- platform: tod
+  name: Dagtid
+  after: '07:00'
+  before: '23:00'

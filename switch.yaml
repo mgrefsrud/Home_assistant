@@ -1,38 +1,6 @@
-#rfxcom
-- platform: rfxtrx
-  automatic_add: true
-  signal_repetitions: 2
-  devices:
-    0b11000000b7086e01010f80:
-      name: 1_kitchen_sideboard
-    0b11001200b7086e03010f80:
-      name: 1_hall_closet_switch
-    0b110000002f10f501000080:
-      name: extra_1
-    0b110002019ba60501010f80:
-      name: extra_4
-    0b1100000354ba4201010f80:
-      name: extra_3
-    0b1100050073399801010f80:
-      name: extra_2
+
 
 #MQTT SWITCHES
-- platform: mqtt
-  name: "garage spotlights"
-  command_topic: "cmnd/garage_spotlights/power"
-  state_topic: "stat/garage_spotlights/POWER"
-  qos: 1
-  payload_on: "ON"
-  payload_off: "OFF"
-  retain: true
-- platform: mqtt
-  name: "garage attic lights"
-  command_topic: "cmnd/garage_attic_lights/power"
-  state_topic: "stat/garage_attic_lights/POWER"
-  qos: 1
-  payload_on: "ON"
-  payload_off: "OFF"
-  retain: true
 - platform: mqtt
   name: "2 bedroom e heater"
   command_topic: "cmnd/2_bedroom_e_heater/power"
@@ -65,8 +33,15 @@
   payload_on: "ON"
   payload_off: "OFF"
   retain: true  
+- platform: mqtt
+  name: "2 bedroom hm heater"
+  command_topic: "cmnd/2_bedroom_hm_heater/power"
+  state_topic: "stat/2_bedroom_hm_heater/POWER"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  retain: true  
   
-
 #Front door lock
 - platform: template
   switches:

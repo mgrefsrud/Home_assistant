@@ -47,9 +47,9 @@
       data: 
         entity_id: script.soundbar_volume_down
     volume_mute:
-      service: switch.turn_on
+      service: script.turn_on
       data: 
-        entity_id: switch.1_livingroom_soundbar_mute
+        entity_id: script.soundbar_mute
     select_source:
       service: script.turn_on
       data_template:

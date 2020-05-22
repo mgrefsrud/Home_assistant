@@ -11,7 +11,20 @@ frontend:
     - /local/lovelace.html
     - /local/custom_ui/custom-weather-animated.html
     - /local/custom_ui/custom-weather-card.html
-    
+panel_iframe:
+  tasmoadmin:
+    title: TasmoAdmin
+    icon: mdi:lightbulb-on
+    url: !secret tasmo_ip  
+
+min_renovasjon:
+  street_name: "Hesteløkka"
+  house_no: "19"
+  street_code: "5474"
+  county_id: "3033"
+  date_format: "%d/%m"
+
+
 config:
 default_config:
 updater:
@@ -83,10 +96,6 @@ tts:
   - platform: google_translate
     language: 'no'
 
-#Add RXcom
-rfxtrx:
-  device: /dev/ttyUSB0
-  debug: true
 
 # Add Xiaomi gateway
 xiaomi_aqara:
@@ -159,11 +168,11 @@ cover: !include cover.yaml
 sensor: !include sensor.yaml
 scene: !include scenes.yaml
 binary_sensor: !include binary_sensor.yaml
-input_select: !include_dir_merge_named input_select
+#input_select: !include_dir_merge_named input_select
 timer: !include timer.yaml
-input_boolean: !include input_boolean.yaml
+#input_boolean: !include input_boolean.yaml
 remote: !include remote.yaml
 climate: !include climate.yaml
 media_player: !include media_player.yaml
 alert: !include alert.yaml
-
+#input_datetime: !include input_datetime.yaml

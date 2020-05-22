@@ -16,7 +16,7 @@
     light.1_livingroom_spotlights_level:
       brightness: 255
       state: 'on'
-    light.2_livingroom_spotlights:
+    light.2_livingroom_spotlights_group:
       state: 'on'
       brightness: 255
     light.2_livingroom_staircase_dimmer_module_level:
@@ -36,11 +36,11 @@
     light.1_livingroom_spotlights_level:
       brightness: 49
       state: 'on'
-    switch.1_kitchen_sideboard:
+    light.1_kitchen_sideboard:
       state: 'on'
-    switch.1_livingroom_light:
+    light.1_livingroom_light:
       state: 'on'
-    light.2_livingroom_spotlights:
+    light.2_livingroom_spotlights_group:
       state: 'on'
       brightness: 100
     light.2_livingroom_staircase_dimmer_module_level:
@@ -60,11 +60,11 @@
     light.1_livingroom_spotlights_level:
       brightness: 88
       state: 'on'
-    switch.1_kitchen_sideboard:
+    light.1_kitchen_sideboard:
       state: 'on'
-    switch.1_livingroom_light:
+    light.1_livingroom_light:
       state: 'on'
-    light.2_livingroom_spotlights:
+    light.2_livingroom_spotlights_group:
       state: 'on'
       brightness: 100
     light.2_livingroom_staircase_dimmer_module_level:
@@ -76,17 +76,16 @@
     input_select.scene_status_dropdown:
       state: Natta
     light.1_kitchen_light:
-      brightness: 2
-      state: 'on'
+      state: 'off'
     light.1_livingroom_spotlights_level:
       state: 'off'
     light.1_hall_spotlights_level:
       state: 'off'
-    switch.1_livingroom_light:
+    light.1_livingroom_light:
       state: 'off'
-    switch.1_kitchen_sideboard:
+    light.1_kitchen_sideboard:
       state: 'off'
-    light.2_livingroom_spotlights:
+    light.2_livingroom_spotlights_group:
       state: 'on'
       brightness: 50
     light.2_livingroom_staircase_dimmer_module_level:
@@ -106,11 +105,11 @@
     light.1_hall_spotlights_level:
       brightness: 50
       state: 'on'
-    switch.1_livingroom_light:
+    light.1_livingroom_light:
       state: 'off'
-    switch.1_kitchen_sideboard:
+    light.1_kitchen_sideboard:
       state: 'off'
-    light.2_livingroom_spotlights:
+    light.2_livingroom_spotlights_group:
       state: 'off'
     light.2_livingroom_staircase_dimmer_module_level:
       brightness: 50
@@ -121,16 +120,15 @@
     input_select.scene_status_dropdown:
       state: Film
     light.1_kitchen_light:
-      brightness: 2
-      state: 'on'
+      state: 'off'
     light.1_livingroom_spotlights_level:
       brightness: 15
       state: 'on'
     light.1_hall_spotlights_level: 
       state: 'off'
-    switch.1_livingroom_light: 
+    light.1_livingroom_light: 
       state: 'off'
-    switch.1_kitchen_sideboard: 
+    light.1_kitchen_sideboard: 
       state: 'off'    
     light.2_livingroom_staircase_dimmer_module_level:
       brightness: 100

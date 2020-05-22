@@ -120,8 +120,9 @@
 - id: 1_bedroom_k_set_temp_22_morning_weekdays
   alias: 1 bedroom k set temp 22 morning weekdays
   trigger:
-  - at: 03:30:00
-    platform: time
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.bedroom_k_morning_workday.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   condition:
   - condition: and
     conditions:
@@ -140,10 +141,11 @@
 - id: 1_bedroom_k_set_temp_16_evening_weekdays
   alias: 1 bedroom k set temp 16 evening weekdays
   trigger:
-    platform: time
-    at: '22:30:00'
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.bedroom_k_evening_workday.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   condition:
-    condition: and
+  - condition: and
     conditions:
     - condition: state
       entity_id: binary_sensor.workday_tomorrow
@@ -152,18 +154,19 @@
       entity_id: binary_sensor.alle_bortreist
       state: 'off'
   action:
-  - service: climate.set_temperature
-    data:
+  - data:
       entity_id: climate.1_bedroom_k_thermostat
-      temperature: 16
       hvac_mode: heat
+      temperature: 16
+    service: climate.set_temperature
 - id: 1_bedroom_k_set_temp_22_morning_weekend
   alias: 1 bedroom k set temp 22 morning weekend
   trigger:
-    platform: time
-    at: 08:30:00
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.bedroom_k_morning_non_workday.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   condition:
-    condition: and
+  - condition: and
     conditions:
     - condition: state
       entity_id: binary_sensor.workday_today
@@ -172,18 +175,19 @@
       entity_id: binary_sensor.alle_bortreist
       state: 'off'
   action:
-  - service: climate.set_temperature
-    data:
+  - data:
       entity_id: climate.1_bedroom_k_thermostat
-      temperature: 22
       hvac_mode: heat
+      temperature: 22
+    service: climate.set_temperature
 - id: 1_bedroom_k_set_temp_16_evening_weekend
   alias: 1 bedroom k set temp 16 evening weekend
   trigger:
-    platform: time
-    at: '23:00:00'
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.bedroom_k_evening_non_workday.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   condition:
-    condition: and
+  - condition: and
     conditions:
     - condition: state
       entity_id: binary_sensor.workday_tomorrow
@@ -192,11 +196,11 @@
       entity_id: binary_sensor.alle_bortreist
       state: 'off'
   action:
-  - service: climate.set_temperature
-    data:
+  - data:
       entity_id: climate.1_bedroom_k_thermostat
-      temperature: 16
       hvac_mode: heat
+      temperature: 16
+    service: climate.set_temperature
 - id: 1_bedroom_k_set_temp_16_during_school
   alias: 1 bedroom k set temp 16 during school
   trigger:
@@ -272,6 +276,7 @@
     state: Dagtid
   - data_template:
       volume_level: 0.6
+    entity_id: media_player.1_livingroom_assistant
     service: media_player.volume_set
   - data:
       message: Nå er det over 25 grader på rommet til Karoline
@@ -279,6 +284,7 @@
     service: tts.google_translate_say
   - data_template:
       volume_level: 0.5
+    entity_id: media_player.1_livingroom_assistant
     service: media_player.volume_set
 - id: 1_hall_turn_down_thermostat_evening
   alias: 1 hall turn down thermostat evening
@@ -311,14 +317,16 @@
       temperature: 18
       hvac_mode: heat
 - id: 1_hall_lock_frontdoor_23
-  alias: 1 hall lock frontdoor 23
+  alias: 1 hall lock frontdoor night
   trigger:
-    platform: time
-    at: '23:00:00'
+  - entity_id: input_select.time_of_day_dropdown
+    from: Dagtid
+    platform: state
+    to: Natt
   action:
-    service: homeassistant.turn_on
-    entity_id:
+  - entity_id:
     - switch.yale_lock
+    service: homeassistant.turn_on
 - id: 1_hall_lock_frontdoor_automatic_23-06
   alias: 1 hall lock frontdoor automatic 23-06
   trigger:
@@ -423,6 +431,7 @@
   action:
   - data_template:
       volume_level: 0.6
+    entity_id: media_player.1_livingroom_assistant
     service: media_player.volume_set
   - data:
       message: Utgangsdøra er åpen.
@@ -430,6 +439,7 @@
     service: tts.google_translate_say
   - data_template:
       volume_level: 0.5
+    entity_id: media_player.1_livingroom_assistant
     service: media_player.volume_set
 - id: 1_hall_closet_light_on
   alias: 1 hall closet light on
@@ -481,7 +491,7 @@
       message: Kanskje lukke kjøleskapet?
     entity_id: media_player.1_livingroom_assistant
     service: tts.google_translate_say
-  - delay: 00:00:05
+  - delay: 00:00:10
   - data_template:
       volume_level: 0.5
     entity_id: media_player.1_livingroom_assistant
@@ -588,7 +598,7 @@
     platform: state
     entity_id: input_select.morten_status_dropdown
     from: hjemme
-    to: akkurat reist
+    to: Reist
   condition:
     condition: and
     conditions:
@@ -601,7 +611,7 @@
   action:
   - service: notify.mobile_app_morten_app
     data:
-      message: Du reiste ifra tomt hus med terassedøra åpen
+      message: Du Reiste ifra tomt hus med terassedøra åpen
       data:
         push:
           badge: 5
@@ -611,7 +621,7 @@
     platform: state
     entity_id: input_select.helen_status_dropdown
     from: hjemme
-    to: akkurat reist
+    to: Reist
   condition:
     condition: and
     conditions:
@@ -624,7 +634,7 @@
   action:
   - service: notify.mobile_app_helen_app
     data:
-      message: Du reiste ifra tomt hus med terassedøra åpen
+      message: Du Reiste ifra tomt hus med terassedøra åpen
       data:
         push:
           badge: 5
@@ -861,7 +871,7 @@
     platform: state
     entity_id: input_select.morten_status_dropdown
     from: hjemme
-    to: akkurat reist
+    to: Reist
   condition:
     condition: and
     conditions:
@@ -874,7 +884,7 @@
   action:
   - service: notify.mobile_app_morten_app
     data:
-      message: Du reiste ifra tomt hus med vaskeromsdøra åpen
+      message: Du Reiste ifra tomt hus med vaskeromsdøra åpen
       data:
         push:
           badge: 5
@@ -884,7 +894,7 @@
     platform: state
     entity_id: input_select.helen_status_dropdown
     from: hjemme
-    to: akkurat reist
+    to: Reist
   condition:
     condition: and
     conditions:
@@ -897,7 +907,7 @@
   action:
   - service: notify.mobile_app_helen_app
     data:
-      message: Du reiste ifra tomt hus med vaskeromsdøra åpen
+      message: Du Reiste ifra tomt hus med vaskeromsdøra åpen
       data:
         push:
           badge: 5
@@ -1042,8 +1052,9 @@
 - id: 2_bedroom_e_set_temp_22_morning_weekdays
   alias: 2 bedroom e set temp 22 morning weekdays
   trigger:
-  - at: 03:30:00
-    platform: time
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.bedroom_e_morning_workday.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   condition:
   - condition: and
     conditions:
@@ -1062,10 +1073,11 @@
 - id: 2_bedroom_e_set_temp_18_evening_weekdays
   alias: 2 bedroom e set temp 18 evening weekdays
   trigger:
-    platform: time
-    at: '22:30:00'
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.bedroom_e_evening_workday.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   condition:
-    condition: and
+  - condition: and
     conditions:
     - condition: state
       entity_id: binary_sensor.workday_tomorrow
@@ -1074,18 +1086,19 @@
       entity_id: binary_sensor.alle_bortreist
       state: 'off'
   action:
-  - service: climate.set_temperature
-    data:
+  - data:
       entity_id: climate.2_bedroom_e_thermostat
-      temperature: 18
       hvac_mode: heat
+      temperature: 18
+    service: climate.set_temperature
 - id: 2_bedroom_e_set_temp_22_morning_weekend
   alias: 2 bedroom e set temp 22 morning weekend
   trigger:
-    platform: time
-    at: 08:30:00
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.bedroom_e_morning_non_workday.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   condition:
-    condition: and
+  - condition: and
     conditions:
     - condition: state
       entity_id: binary_sensor.workday_today
@@ -1094,18 +1107,19 @@
       entity_id: binary_sensor.alle_bortreist
       state: 'off'
   action:
-  - service: climate.set_temperature
-    data:
+  - data:
       entity_id: climate.2_bedroom_e_thermostat
-      temperature: 22
       hvac_mode: heat
+      temperature: 22
+    service: climate.set_temperature
 - id: 2_bedroom_e_set_temp_18_evening_weekend
   alias: 2 bedroom e set temp 18 evening weekend
   trigger:
-    platform: time
-    at: '23:00:00'
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.bedroom_e_evening_non_workday.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   condition:
-    condition: and
+  - condition: and
     conditions:
     - condition: state
       entity_id: binary_sensor.workday_tomorrow
@@ -1114,11 +1128,11 @@
       entity_id: binary_sensor.alle_bortreist
       state: 'off'
   action:
-  - service: climate.set_temperature
-    data:
+  - data:
       entity_id: climate.2_bedroom_e_thermostat
-      temperature: 18
       hvac_mode: heat
+      temperature: 18
+    service: climate.set_temperature
 - id: 2_bedroom_e_set_temp_18_during_school
   alias: 2 bedroom e set temp 18 during school
   trigger:
@@ -1300,10 +1314,11 @@
 - id: 2_bedroom_o_set_temp_16_evening_weekdays
   alias: 2 bedroom o set temp 16 evening weekdays
   trigger:
-    platform: time
-    at: '19:30:00'
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.bedroom_o_evening_workday.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   condition:
-    condition: and
+  - condition: and
     conditions:
     - condition: state
       entity_id: binary_sensor.workday_tomorrow
@@ -1312,18 +1327,19 @@
       entity_id: binary_sensor.alle_bortreist
       state: 'off'
   action:
-  - service: climate.set_temperature
-    data:
+  - data:
       entity_id: climate.2_bedroom_o_thermostat
-      temperature: 16
       hvac_mode: heat
+      temperature: 16
+    service: climate.set_temperature
 - id: 2_bedroom_o_set_temp_20_morning_weekend
   alias: 2 bedroom o set temp 20 morning weekend
   trigger:
-    platform: time
-    at: 07:30:00
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.bedroom_o_morning_non_workday.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   condition:
-    condition: and
+  - condition: and
     conditions:
     - condition: state
       entity_id: binary_sensor.workday_today
@@ -1332,18 +1348,19 @@
       entity_id: binary_sensor.alle_bortreist
       state: 'off'
   action:
-  - service: climate.set_temperature
-    data:
+  - data:
       entity_id: climate.2_bedroom_o_thermostat
-      temperature: 20
       hvac_mode: heat
+      temperature: 20
+    service: climate.set_temperature
 - id: 2_bedroom_o_set_temp_16_evening_weekend
   alias: 2 bedroom o set temp 16 evening weekend
   trigger:
-    platform: time
-    at: '21:00:00'
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.bedroom_o_evening_non_workday.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   condition:
-    condition: and
+  - condition: and
     conditions:
     - condition: state
       entity_id: binary_sensor.workday_tomorrow
@@ -1352,11 +1369,11 @@
       entity_id: binary_sensor.alle_bortreist
       state: 'off'
   action:
-  - service: climate.set_temperature
-    data:
+  - data:
       entity_id: climate.2_bedroom_o_thermostat
-      temperature: 16
       hvac_mode: heat
+      temperature: 16
+    service: climate.set_temperature
 - id: 2_bedroom_o_set_temp_20_after_school
   alias: 2 bedroom o set temp 20 after school
   trigger:
@@ -1426,8 +1443,9 @@
 - id: 2_bedroom_t_set_temp_22_morning_weekdays
   alias: 2 bedroom t set temp 22 morning weekdays
   trigger:
-  - at: 03:30:00
-    platform: time
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.bedroom_t_morning_workday.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   condition:
   - condition: and
     conditions:
@@ -1446,10 +1464,11 @@
 - id: 2_bedroom_t_set_temp_16_evening_weekdays
   alias: 2 bedroom t set temp 16 evening weekdays
   trigger:
-    platform: time
-    at: '22:30:00'
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.bedroom_t_evening_workday.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   condition:
-    condition: and
+  - condition: and
     conditions:
     - condition: state
       entity_id: binary_sensor.workday_tomorrow
@@ -1458,18 +1477,19 @@
       entity_id: binary_sensor.alle_bortreist
       state: 'off'
   action:
-  - service: climate.set_temperature
-    data:
+  - data:
       entity_id: climate.2_bedroom_t_thermostat
-      temperature: 16
       hvac_mode: heat
+      temperature: 16
+    service: climate.set_temperature
 - id: 2_bedroom_t_set_temp_22_morning_weekend
   alias: 2 bedroom t set temp 22 morning weekend
   trigger:
-    platform: time
-    at: 08:30:00
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.bedroom_t_morning_non_workday.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   condition:
-    condition: and
+  - condition: and
     conditions:
     - condition: state
       entity_id: binary_sensor.workday_today
@@ -1478,18 +1498,19 @@
       entity_id: binary_sensor.alle_bortreist
       state: 'off'
   action:
-  - service: climate.set_temperature
-    data:
+  - data:
       entity_id: climate.2_bedroom_t_thermostat
-      temperature: 22
       hvac_mode: heat
+      temperature: 22
+    service: climate.set_temperature
 - id: 2_bedroom_t_set_temp_16_evening_weekend
   alias: 2 bedroom t set temp 16 evening weekend
   trigger:
-    platform: time
-    at: '23:00:00'
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.bedroom_t_evening_non_workday.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   condition:
-    condition: and
+  - condition: and
     conditions:
     - condition: state
       entity_id: binary_sensor.workday_tomorrow
@@ -1498,11 +1519,11 @@
       entity_id: binary_sensor.alle_bortreist
       state: 'off'
   action:
-  - service: climate.set_temperature
-    data:
+  - data:
       entity_id: climate.2_bedroom_t_thermostat
-      temperature: 16
       hvac_mode: heat
+      temperature: 16
+    service: climate.set_temperature
 - id: 2_bedroom_t_set_temp_16_during_school
   alias: 2 bedroom t set temp 16 during school
   trigger:
@@ -1592,11 +1613,11 @@
 - id: 2_livingroom_window_is_open_and_it_is_raining
   alias: 2 livingroom window is open and it is raining
   trigger:
-    platform: numeric_state
+  - above: '0'
     entity_id: sensor.netatmo_rain_sensor_rain
-    above: '0'
+    platform: numeric_state
   condition:
-    condition: and
+  - condition: and
     conditions:
     - condition: state
       entity_id: binary_sensor.2_livingroom_roof_window
@@ -1609,10 +1630,10 @@
       volume_level: 0.6
     entity_id: media_player.1_livingroom_assistant
     service: media_player.volume_set
-  - service: tts.google_translate_say
-    entity_id: media_player.1_livingroom_assistant
-    data:
+  - data:
       message: Det regner og takvindu i stua er åpent.
+    entity_id: media_player.1_livingroom_assistant
+    service: tts.google_translate_say
   - delay: 00:00:05
   - data_template:
       volume_level: 0.5
@@ -1806,9 +1827,9 @@
 - id: brew_fermentation_temperature_to_high
   alias: brew fermentation temperature to high
   trigger:
-    platform: numeric_state
+  - above: '22'
     entity_id: sensor.brew_fermentation_temperature
-    above: '23'
+    platform: numeric_state
   action:
   - condition: state
     entity_id: input_select.time_of_day_dropdown
@@ -1817,21 +1838,24 @@
       volume_level: 0.6
     entity_id: media_player.1_livingroom_assistant
     service: media_player.volume_set
-  - service: tts.google_translate_say
-    entity_id: media_player.1_livingroom_assistant
-    data:
+  - data:
       message: Nå er det for varmt for gjæringskaret.
+    entity_id: media_player.1_livingroom_assistant
+    service: tts.google_translate_say
   - delay: 00:00:05
   - data_template:
       volume_level: 0.5
     entity_id: media_player.1_livingroom_assistant
     service: media_player.volume_set
+  - data:
+      message: Nå er det for varmt for gjæringskaret
+    service: notify.mobile_app_morten_app
 - id: brew_fermentation_temperature_to_low
   alias: brew fermentation temperature to low
   trigger:
-    platform: numeric_state
+  - below: '18'
     entity_id: sensor.brew_fermentation_temperature
-    below: '18'
+    platform: numeric_state
   action:
   - condition: state
     entity_id: input_select.time_of_day_dropdown
@@ -1840,15 +1864,18 @@
       volume_level: 0.6
     entity_id: media_player.1_livingroom_assistant
     service: media_player.volume_set
-  - service: tts.google_translate_say
-    entity_id: media_player.1_livingroom_assistant
-    data:
+  - data:
       message: Nå er det for kaldt for gjæringskaret.
+    entity_id: media_player.1_livingroom_assistant
+    service: tts.google_translate_say
   - delay: 00:00:05
   - data_template:
       volume_level: 0.5
     entity_id: media_player.1_livingroom_assistant
     service: media_player.volume_set
+  - data:
+      message: Nå er det for kaldt for gjæringskaret
+    service: notify.mobile_app_morten_app
 - id: no_one_home_turn_down_heating
   alias: no one home turn down heating
   trigger:
@@ -1940,87 +1967,90 @@
 - id: 2_livingroom_SmokeAlert_smoke
   alias: 2 livingroom SmokeAlert smoke
   trigger:
+  - entity_id: sensor.2_livingroom_smoke_sensor_smoke_2
     platform: state
-    entity_id: sensor.2_livingroom_smoke_sensor_smoke_2
     to: '255'
   action:
-  - service: scene.turn_on
-    entity_id: scene.normal
-  - service: media_player.volume_set
-    data_template:
-      entity_id: media_player.1_livingroom_assistant
+  - entity_id: scene.normal
+    service: scene.turn_on
+  - data_template:
       volume_level: 1
-  - service: tts.google_translate_say
     entity_id: media_player.1_livingroom_assistant
-    data:
+    service: media_player.volume_set
+  - data:
       message: 'Brannalarmen oppe er utløst for røyk '
-  - service: tts.google_translate_say
+    entity_id: media_player.1_livingroom_assistant
+    service: tts.google_translate_say
+  - data:
+      message: 'Brannalarmen oppe er utløst for røyk '
     entity_id: media_player.2_bedroom_t_sonos
-    data:
-      message: 'Brannalarmen oppe er utløst for røyk '
+    service: tts.google_translate_say
 - id: 1_hall_SmokeAlert_smoke
   alias: 1 hall SmokeAlert smoke
   trigger:
+  - entity_id: sensor.1_hall_smoke_sensor_smoke_2
     platform: state
-    entity_id: sensor.1_hall_smoke_sensor_smoke_2
     to: '255'
   action:
-  - service: scene.turn_on
-    entity_id: scene.normal
-  - service: media_player.volume_set
-    data_template:
+  - entity_id: scene.normal
+    service: scene.turn_on
+  - data_template:
       entity_id: media_player.1_livingroom_assistant
       volume_level: 1
-  - service: tts.google_translate_say
     entity_id: media_player.1_livingroom_assistant
-    data:
+    service: media_player.volume_set
+  - data:
       message: 'Brannalarmen, nede er utløst for røyk '
-  - service: tts.google_translate_say
-    entity_id: media_player.2_bedroom_t_sonos
-    data:
+    entity_id: media_player.1_livingroom_assistant
+    service: tts.google_translate_say
+  - data:
       message: 'Brannalarmen nede er utløst for røyk '
+    entity_id: media_player.2_bedroom_t_sonos
+    service: tts.google_translate_say
 - id: 2_livingroom_SmokeAlert_heat
   alias: 2 livingroom SmokeAlert heat
   trigger:
+  - entity_id: sensor.2_livingroom_smoke_sensor_heat_2
     platform: state
-    entity_id: sensor.2_livingroom_smoke_sensor_heat_2
     to: '255'
   action:
-  - service: scene.turn_on
-    entity_id: scene.normal
-  - service: media_player.volume_set
-    data_template:
+  - entity_id: scene.normal
+    service: scene.turn_on
+  - data_template:
       entity_id: media_player.1_livingroom_assistant
       volume_level: 1
-  - service: tts.google_translate_say
     entity_id: media_player.1_livingroom_assistant
-    data:
+    service: media_player.volume_set
+  - data:
       message: 'Brannalarmen oppe er utløst for varme '
-  - service: tts.google_translate_say
+    entity_id: media_player.1_livingroom_assistant
+    service: tts.google_translate_say
+  - data:
+      message: 'Brannalarmen oppe er utløst for varme '
     entity_id: media_player.2_bedroom_t_sonos
-    data:
-      message: 'Brannalarmen oppe er utløst for varme '
+    service: tts.google_translate_say
 - id: 1_hall_SmokeAlert_heat
   alias: 1 hall SmokeAlert heat
   trigger:
+  - entity_id: sensor.1_hall_smoke_sensor_heat_2
     platform: state
-    entity_id: sensor.1_hall_smoke_sensor_heat_2
     to: '255'
   action:
-  - service: scene.turn_on
-    entity_id: scene.normal
-  - service: media_player.volume_set
-    data_template:
+  - entity_id: scene.normal
+    service: scene.turn_on
+  - data_template:
       entity_id: media_player.1_livingroom_assistant
       volume_level: 1
-  - service: tts.google_translate_say
     entity_id: media_player.1_livingroom_assistant
-    data:
+    service: media_player.volume_set
+  - data:
       message: 'Brannalarmen nede er utløst for varme '
-  - service: tts.google_translate_say
+    entity_id: media_player.1_livingroom_assistant
+    service: tts.google_translate_say
+  - data:
+      message: 'Brannalarmen nede er utløst for varme '
     entity_id: media_player.2_bedroom_t_sonos
-    data:
-      message: 'Brannalarmen nede er utløst for varme '
+    service: tts.google_translate_say
 - id: Garage_nissan_door_is_open
   alias: Garage nissan door is open
   trigger:
@@ -2181,7 +2211,7 @@
   - entity_id: timer.port_nissan
     service: timer.cancel
 - id: Garage_nissan_door_did_not_close
-  alias: 'Garage nissan door did not close'
+  alias: Garage nissan door did not close
   trigger:
   - event_data:
       entity_id: timer.port_nissan
@@ -2352,18 +2382,16 @@
 - id: Garage_attic_door_light
   alias: Garage attic door light
   trigger:
-    platform: state
-    entity_id: binary_sensor.garage_attic_door_sensor
+  - entity_id: binary_sensor.garage_attic_door_sensor
     from: 'off'
+    platform: state
     to: 'on'
   action:
-  - service: homeassistant.turn_on
-    entity_id:
-    - switch.garage_attic_lights
+  - entity_id: light.garage_attic_lights
+    service: light.turn_on
   - delay: 00:30:00
-  - service: homeassistant.turn_off
-    entity_id:
-    - switch.garage_attic_lights
+  - entity_id: light.garage_attic_lights
+    service: light.turn_off
 - id: garage_lights_turn_on_in_the_evening
   alias: Garage spotlights turn on in the evening
   trigger:
@@ -2371,10 +2399,8 @@
     offset: -01:00:00
     platform: sun
   action:
-  - entity_id:
-    - switch.garage_spotlights
-    - switch.garage_switch
-    service: homeassistant.turn_on
+  - entity_id: light.garage_spotlights
+    service: light.turn_on
 - id: garage_lights_turn_off_in_the_morning
   alias: Garage spotlights turn off in the morning
   trigger:
@@ -2382,10 +2408,8 @@
     offset: +01:00:00
     platform: sun
   action:
-  - entity_id:
-    - switch.garage_spotlights
-    - switch.garage_switch
-    service: homeassistant.turn_off
+  - entity_id: light.garage_spotlights
+    service: light.turn_off
 - id: Garage_tesla_snapshot
   alias: Garage tesla snapshot
   trigger:
@@ -2427,9 +2451,9 @@
       media_player: media_player.1_livingroom_chromecast
     service: camera.play_stream
 - id: Garden_Frank_is_out_mowing
-  alias: Garden Frank is out mowing
+  alias: Garden Henry is out mowing
   trigger:
-  - entity_id: binary_sensor.garden_robomow
+  - entity_id: binary_sensor.garden_henry
     for: 0:00:10
     from: 'on'
     platform: state
@@ -2439,7 +2463,7 @@
       data:
         push:
           badge: 5
-      message: Frank er ute på tur
+      message: Henry er ute på tur
     service: notify.mobile_app_morten_app
   - condition: state
     entity_id: input_select.time_of_day_dropdown
@@ -2449,7 +2473,7 @@
     entity_id: media_player.1_livingroom_assistant
     service: media_player.volume_set
   - data:
-      message: Nå er Frank ute på tur
+      message: Nå er Henry ute på tur
     entity_id: media_player.1_livingroom_assistant
     service: tts.google_translate_say
   - delay: 00:00:05
@@ -2458,10 +2482,10 @@
     entity_id: media_player.1_livingroom_assistant
     service: media_player.volume_set
 - id: Garden_Frank_is_stuck
-  alias: Garden Frank is stuck
+  alias: Garden Henry is stuck
   trigger:
-  - entity_id: binary_sensor.garden_robomow
-    for: 0:110:00
+  - entity_id: binary_sensor.garden_henry
+    for: 0:105:00
     from: 'on'
     platform: state
     to: 'off'
@@ -2470,7 +2494,7 @@
       data:
         push:
           badge: 5
-      message: Frank sitter nok fast
+      message: Henry sitter nok fast
     service: notify.mobile_app_morten_app
   - condition: state
     entity_id: input_select.time_of_day_dropdown
@@ -2480,7 +2504,7 @@
     entity_id: media_player.1_livingroom_assistant
     service: media_player.volume_set
   - data:
-      message: Nå er har nok Frank kjørt seg fast
+      message: Nå er har nok Henry kjørt seg fast
     entity_id: media_player.1_livingroom_assistant
     service: tts.google_translate_say
   - delay: 00:00:05
@@ -2489,19 +2513,16 @@
     entity_id: media_player.1_livingroom_assistant
     service: media_player.volume_set
 - id: Garden_Frank_is_home_again
-  alias: Garden Frank is home again
+  alias: Garden Henry is home again
   trigger:
-  - entity_id: binary_sensor.garden_robomow
-    for: 0:00:10
+  - entity_id: binary_sensor.garden_henry
+    for: 00:00:10
     from: 'off'
     platform: state
     to: 'on'
   condition:
   - condition: and
     conditions:
-    - above: '1'
-      condition: numeric_state
-      entity_id: sensor.time_online
     - condition: state
       entity_id: input_select.time_of_day_dropdown
       state: Dagtid
@@ -2511,14 +2532,14 @@
         android:
           notification:
             image: https://i.pinimg.com/originals/0f/7b/fa/0f7bfa4e6775b5977694a6036fc85b48.png
-      message: Frank hjemme igjen
+      message: Henry er hjemme igjen
     service: notify.mobile_app_morten_app
   - data_template:
       volume_level: 0.6
     entity_id: media_player.1_livingroom_assistant
     service: media_player.volume_set
   - data:
-      message: Nå er Frank hjemme igjen
+      message: Nå er Henry hjemme igjen
     entity_id: media_player.1_livingroom_assistant
     service: tts.google_translate_say
   - delay: 00:00:05
@@ -2590,51 +2611,36 @@
     data:
       entity_id: input_boolean.on_all_automations
 - id: set_time_of_day_to_dagtid
-  alias: set time of day to dagtid
+  alias: set time of day to Dagtid workday
   trigger:
-  - platform: time
-    at: 07:00:00
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.morning.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_today
+    state: 'on'
   action:
-  - service: input_select.select_option
-    data:
+  - data:
       entity_id: input_select.time_of_day_dropdown
       option: Dagtid
+    service: input_select.select_option
 - id: set_time_of_day_to_Natt
-  alias: set time of day to Natt
+  alias: set time of day to Natt before workday
   trigger:
-  - platform: time
-    at: '23:00:00'
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.night.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_tomorrow
+    state: 'on'
   action:
-  - service: input_select.select_option
-    data:
+  - data:
       entity_id: input_select.time_of_day_dropdown
       option: Natt
-- id: '1579904044300'
-  alias: Cube flipped
-  description: ''
-  trigger:
-  - device_id: c48c7c90c21d4631822193766415de6b
-    domain: zha
-    platform: device
-    subtype: face_1
-    type: device_flipped
-  condition: []
-  action:
-  - entity_id: light.1_livingroom_light
-    service: homeassistant.turn_off
-- id: '1579904535239'
-  alias: Cube knock
-  description: ''
-  trigger:
-  - device_id: c48c7c90c21d4631822193766415de6b
-    domain: zha
-    platform: device
-    subtype: face_1
-    type: device_knocked
-  condition: []
-  action:
-  - entity_id: light.1_livingroom_light
-    service: homeassistant.turn_on
+    entity_id: input_select.time_of_day_dropdown
+    service: input_select.select_option
 - id: update_mqtt
   alias: Update MQTT
   description: ''
@@ -2644,7 +2650,35 @@
   action:
   - data:
       payload: ''
-      topic: cmnd/tasmotas/state
+      topic: cmnd/garage_spotlights/Power
+    service: mqtt.publish
+  - data:
+      payload: ''
+      topic: cmnd/garage_attic_lights/Power
+    service: mqtt.publish
+  - data:
+      payload: ''
+      topic: cmnd/2_bedroom_e_heater/Power
+    service: mqtt.publish
+  - data:
+      payload: ''
+      topic: cmnd/2_bedroom_o_heater/Power
+    service: mqtt.publish
+  - data:
+      payload: ''
+      topic: cmnd/1_bedroom_k_heater/Power
+    service: mqtt.publish
+  - data:
+      payload: ''
+      topic: cmnd/2_bedroom_t_heater/Power
+    service: mqtt.publish
+  - data:
+      payload: ''
+      topic: cmnd/2_bedroom_hm_heater/Power
+    service: mqtt.publish
+  - data:
+      payload: ''
+      topic: cmnd/1_kitchen_sideboard/Power
     service: mqtt.publish
 - id: All_Mark_as_hjemme
   alias: All Mark as hjemme
@@ -2707,7 +2741,7 @@
     data:
       entity_id: input_boolean.all_away
 - id: Morten_mark_as_Akkurat_kommet_hjem
-  alias: Morten mark as Akkurat kommet hjem
+  alias: Morten mark as Kommet
   trigger:
   - platform: state
     entity_id: binary_sensor.morten_presence
@@ -2717,42 +2751,42 @@
   - service: input_select.select_option
     data:
       entity_id: input_select.morten_status_dropdown
-      option: Akkurat kommet hjem
+      option: Kommet
 - id: Morten_mark_as_Hjemme
   alias: Morten mark as Hjemme
   trigger:
   - platform: state
     entity_id: input_select.morten_status_dropdown
-    to: Akkurat kommet hjem
+    to: Kommet
     for:
       minutes: 5
   - platform: state
     entity_id: input_select.morten_status_dropdown
-    from: Akkurat reist
-    to: Akkurat kommet hjem
+    from: Reist
+    to: Kommet
   action:
   - service: input_select.select_option
     data:
       entity_id: input_select.morten_status_dropdown
       option: Hjemme
 - id: Morten_mark_as_Akkurat_reist
-  alias: Morten mark as Akkurat reist
+  alias: Morten mark as Reist
   trigger:
-  - platform: state
-    entity_id: binary_sensor.morten_presence
+  - entity_id: binary_sensor.morten_presence
     from: 'on'
+    platform: state
     to: 'off'
   action:
-  - service: input_select.select_option
-    data:
+  - data:
       entity_id: input_select.morten_status_dropdown
-      option: Akkurat reist
+      option: Reist
+    service: input_select.select_option
 - id: Morten_mark_as_Borte
   alias: Morten mark as Borte
   trigger:
   - platform: state
     entity_id: input_select.morten_status_dropdown
-    to: Akkurat reist
+    to: Reist
     for:
       minutes: 5
   - platform: state
@@ -2879,7 +2913,7 @@
       entity_id: input_select.morten_status_dropdown
       option: Bortreist
 - id: Helen_mark_as_Akkurat_kommet_hjem
-  alias: Helen mark as Akkurat kommet hjem
+  alias: Helen mark as Kommet
   trigger:
   - platform: state
     entity_id: binary_sensor.helen_presence
@@ -2889,26 +2923,26 @@
   - service: input_select.select_option
     data:
       entity_id: input_select.helen_status_dropdown
-      option: Akkurat kommet hjem
+      option: Kommet
 - id: Helen_mark_as_Hjemme
   alias: Helen mark as Hjemme
   trigger:
   - platform: state
     entity_id: input_select.helen_status_dropdown
-    to: Akkurat kommet hjem
+    to: Kommet
     for:
       minutes: 5
   - platform: state
     entity_id: input_select.helen_status_dropdown
-    from: Akkurat reist
-    to: Akkurat kommet hjem
+    from: Reist
+    to: Kommet
   action:
   - service: input_select.select_option
     data:
       entity_id: input_select.helen_status_dropdown
       option: Hjemme
 - id: Helen_mark_as_Akkurat_reist
-  alias: Helen mark as Akkurat reist
+  alias: Helen mark as Reist
   trigger:
   - platform: state
     entity_id: binary_sensor.helen_presence
@@ -2918,13 +2952,13 @@
   - service: input_select.select_option
     data:
       entity_id: input_select.helen_status_dropdown
-      option: Akkurat reist
+      option: Reist
 - id: Helen_mark_as_Borte
   alias: Helen mark as Borte
   trigger:
   - platform: state
     entity_id: input_select.helen_status_dropdown
-    to: Akkurat reist
+    to: Reist
     for:
       minutes: 5
   - platform: state
@@ -3044,7 +3078,7 @@
       entity_id: input_select.helen_status_dropdown
       option: Bortreist
 - id: Karoline_mark_as_Akkurat_kommet_hjem
-  alias: Karoline mark as Akkurat kommet hjem
+  alias: Karoline mark as Kommet
   trigger:
   - platform: state
     entity_id: binary_sensor.karoline_presence
@@ -3054,26 +3088,26 @@
   - service: input_select.select_option
     data:
       entity_id: input_select.karoline_status_dropdown
-      option: Akkurat kommet hjem
+      option: Kommet
 - id: Karoline_mark_as_Hjemme
   alias: Karoline mark as Hjemme
   trigger:
   - platform: state
     entity_id: input_select.karoline_status_dropdown
-    to: Akkurat kommet hjem
+    to: Kommet
     for:
       minutes: 5
   - platform: state
     entity_id: input_select.karoline_status_dropdown
-    from: Akkurat reist
-    to: Akkurat kommet hjem
+    from: Reist
+    to: Kommet
   action:
   - service: input_select.select_option
     data:
       entity_id: input_select.karoline_status_dropdown
       option: Hjemme
 - id: Karoline_mark_as_Akkurat_reist
-  alias: Karoline mark as Akkurat reist
+  alias: Karoline mark as Reist
   trigger:
   - platform: state
     entity_id: binary_sensor.karoline_presence
@@ -3083,13 +3117,13 @@
   - service: input_select.select_option
     data:
       entity_id: input_select.karoline_status_dropdown
-      option: Akkurat reist
+      option: Reist
 - id: Karoline_mark_as_Borte
   alias: Karoline mark as Borte
   trigger:
   - platform: state
     entity_id: input_select.karoline_status_dropdown
-    to: Akkurat reist
+    to: Reist
     for:
       minutes: 5
   - platform: state
@@ -3216,7 +3250,7 @@
       entity_id: input_select.karoline_status_dropdown
       option: Bortreist
 - id: Emil_mark_as_Akkurat_kommet_hjem
-  alias: Emil mark as Akkurat kommet hjem
+  alias: Emil mark as Kommet
   trigger:
   - platform: state
     entity_id: binary_sensor.emil_presence
@@ -3226,26 +3260,26 @@
   - service: input_select.select_option
     data:
       entity_id: input_select.emil_status_dropdown
-      option: Akkurat kommet hjem
+      option: Kommet
 - id: Emil_mark_as_Hjemme
   alias: Emil mark as Hjemme
   trigger:
   - platform: state
     entity_id: input_select.emil_status_dropdown
-    to: Akkurat kommet hjem
+    to: Kommet
     for:
       minutes: 5
   - platform: state
     entity_id: input_select.emil_status_dropdown
-    from: Akkurat reist
-    to: Akkurat kommet hjem
+    from: Reist
+    to: Kommet
   action:
   - service: input_select.select_option
     data:
       entity_id: input_select.emil_status_dropdown
       option: Hjemme
 - id: Emil_mark_as_Akkurat_reist
-  alias: Emil mark as Akkurat reist
+  alias: Emil mark as Reist
   trigger:
   - platform: state
     entity_id: binary_sensor.emil_presence
@@ -3255,13 +3289,13 @@
   - service: input_select.select_option
     data:
       entity_id: input_select.emil_status_dropdown
-      option: Akkurat reist
+      option: Reist
 - id: Emil_mark_as_Borte
   alias: Emil mark as Borte
   trigger:
   - platform: state
     entity_id: input_select.emil_status_dropdown
-    to: Akkurat reist
+    to: Reist
     for:
       minutes: 5
   - platform: state
@@ -3388,7 +3422,7 @@
       entity_id: input_select.emil_status_dropdown
       option: Bortreist
 - id: Tobias_mark_as_Akkurat_kommet_hjem
-  alias: Tobias mark as Akkurat kommet hjem
+  alias: Tobias mark as Kommet
   trigger:
   - platform: state
     entity_id: binary_sensor.tobias_presence
@@ -3398,26 +3432,26 @@
   - service: input_select.select_option
     data:
       entity_id: input_select.tobias_status_dropdown
-      option: Akkurat kommet hjem
+      option: Kommet
 - id: Tobias_mark_as_Hjemme
   alias: Tobias mark as Hjemme
   trigger:
   - platform: state
     entity_id: input_select.tobias_status_dropdown
-    to: Akkurat kommet hjem
+    to: Kommet
     for:
       minutes: 5
   - platform: state
     entity_id: input_select.tobias_status_dropdown
-    from: Akkurat reist
-    to: Akkurat kommet hjem
+    from: Reist
+    to: Kommet
   action:
   - service: input_select.select_option
     data:
       entity_id: input_select.tobias_status_dropdown
       option: Hjemme
 - id: Tobias_mark_as_Akkurat_reist
-  alias: Tobias mark as Akkurat reist
+  alias: Tobias mark as Reist
   trigger:
   - platform: state
     entity_id: binary_sensor.tobias_presence
@@ -3427,13 +3461,13 @@
   - service: input_select.select_option
     data:
       entity_id: input_select.tobias_status_dropdown
-      option: Akkurat reist
+      option: Reist
 - id: Tobias_mark_as_Borte
   alias: Tobias mark as Borte
   trigger:
   - platform: state
     entity_id: input_select.tobias_status_dropdown
-    to: Akkurat reist
+    to: Reist
     for:
       minutes: 5
   - platform: state
@@ -3609,28 +3643,33 @@
 - id: ha_theme_dark
   alias: HA Dark Theme
   trigger:
-    platform: time
-    at: '23:00:00'
+  - entity_id: input_select.time_of_day_dropdown
+    from: Dagtid
+    platform: state
+    to: Natt
   action:
-  - service: frontend.set_theme
-    data_template:
+  - data_template:
       name: Google Dark Theme
+    service: frontend.set_theme
 - id: ha_theme_light
   alias: HA Light Theme
   trigger:
-    platform: time
-    at: 06:30:00
+  - entity_id: input_select.time_of_day_dropdown
+    from: Natt
+    platform: state
+    to: Dagtid
   action:
-  - service: frontend.set_theme
-    data_template:
+  - data_template:
       name: Google Light Theme
+    service: frontend.set_theme
 - id: Lights_turn_on_dimmed_lights_in_the_morning_weekdays
   alias: Lights turn on dimmed lights in the morning weekdays
   trigger:
-    platform: time
-    at: 05:45:00
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.morning.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   condition:
-    condition: and
+  - condition: and
     conditions:
     - condition: state
       entity_id: binary_sensor.workday_today
@@ -3639,15 +3678,16 @@
       entity_id: binary_sensor.alle_bortreist
       state: 'off'
   action:
-  - service: scene.turn_on
-    entity_id: scene.morgen
-- id: Lights_turn_on_normal_lights_0800_weekdays
-  alias: Lights turn on normal lights 0800 weekdays
+  - entity_id: scene.morgen
+    service: scene.turn_on
+- id: Lights_turn_on_normal_lights_weekdays
+  alias: Lights turn on normal lights weekdays
   trigger:
-    platform: time
-    at: 07:55:00
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.day.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   condition:
-    condition: and
+  - condition: and
     conditions:
     - condition: state
       entity_id: binary_sensor.workday_today
@@ -3656,15 +3696,16 @@
       entity_id: binary_sensor.alle_bortreist
       state: 'off'
   action:
-  - service: scene.turn_on
-    entity_id: scene.normal
+  - entity_id: scene.normal
+    service: scene.turn_on
 - id: Lights_turn_down_lights_in_the_evening_weekdays
   alias: Lights turn down lights in the evening weekdays
   trigger:
-    platform: time
-    at: '21:30:00'
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.evening.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   condition:
-    condition: and
+  - condition: and
     conditions:
     - condition: state
       entity_id: binary_sensor.workday_tomorrow
@@ -3676,15 +3717,16 @@
       entity_id: binary_sensor.alle_bortreist
       state: 'off'
   action:
+  - entity_id: scene.kveld
     service: scene.turn_on
-    entity_id: scene.kveld
 - id: Lights_turn_off_lights_in_the_evening_weekdays
   alias: Lights turn off lights in the evening weekdays
   trigger:
-    platform: time
-    at: '23:00:00'
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.night.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   condition:
-    condition: and
+  - condition: and
     conditions:
     - condition: state
       entity_id: binary_sensor.workday_tomorrow
@@ -3693,15 +3735,16 @@
       entity_id: input_select.scene_status_dropdown
       state: Kveld
   action:
+  - entity_id: scene.natta
     service: scene.turn_on
-    entity_id: scene.natta
 - id: Lights_turn_on_dimmed_lights_in_the_morning_weekends
   alias: Lights turn on dimmed lights in the morning weekends
   trigger:
-    platform: time
-    at: 07:30:00
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.morning_not_workday.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   condition:
-    condition: and
+  - condition: and
     conditions:
     - condition: state
       entity_id: binary_sensor.workday_today
@@ -3710,15 +3753,16 @@
       entity_id: binary_sensor.alle_bortreist
       state: 'off'
   action:
-  - service: scene.turn_on
-    entity_id: scene.morgen
+  - entity_id: scene.morgen
+    service: scene.turn_on
 - id: Lights_turn_on normal_lights_at_noon_weekends
-  alias: Lights turn on normal lights at noon weekends
+  alias: Lights turn on normal lights weekends
   trigger:
-    platform: time
-    at: '12:00:00'
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.day_not_workday.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   condition:
-    condition: and
+  - condition: and
     conditions:
     - condition: state
       entity_id: binary_sensor.workday_today
@@ -3727,15 +3771,16 @@
       entity_id: binary_sensor.alle_bortreist
       state: 'off'
   action:
-  - service: scene.turn_on
-    entity_id: scene.normal
+  - entity_id: scene.normal
+    service: scene.turn_on
 - id: Lights_turn_down_lights_in_the_evening_weekends
   alias: Lights turn down lights in the evening weekends
   trigger:
-    platform: time
-    at: '22:30:00'
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.evening_not_workday.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   condition:
-    condition: and
+  - condition: and
     conditions:
     - condition: state
       entity_id: binary_sensor.workday_tomorrow
@@ -3747,15 +3792,16 @@
       entity_id: input_select.scene_status_dropdown
       state: Normal
   action:
+  - entity_id: scene.kveld
     service: scene.turn_on
-    entity_id: scene.kveld
 - id: Lights_turn_off_lights_in_the_evening_weekends
   alias: Lights turn off lights in the evening weekends
   trigger:
-    platform: time
-    at: '23:59:59'
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.night_not_workday.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
   condition:
-    condition: and
+  - condition: and
     conditions:
     - condition: state
       entity_id: binary_sensor.workday_tomorrow
@@ -3764,8 +3810,8 @@
       entity_id: input_select.scene_status_dropdown
       state: Kveld
   action:
+  - entity_id: scene.natta
     service: scene.turn_on
-    entity_id: scene.natta
 - id: Lights_no_one_home
   alias: Lights no one home
   trigger:
@@ -3917,34 +3963,6 @@
   - service: notify.mobile_app_morten_app
     data:
       message: Det er en oppdatering tilgjengelig for home assistant
-- id: garage_nissan_relee_off
-  alias: Garage Nissan relee off
-  description: ''
-  trigger:
-  - payload: 'ON'
-    platform: mqtt
-    topic: cmnd/garage_nissan/POWER
-  condition: []
-  action:
-  - delay: 00:00:01
-  - data:
-      payload: 'OFF'
-      topic: cmnd/garage_nissan/POWER
-    service: mqtt.publish
-- id: garage_tesla_relee_off
-  alias: Garage Tesla relee off
-  description: ''
-  trigger:
-  - payload: 'ON'
-    platform: mqtt
-    topic: cmnd/garage_tesla/POWER
-  condition: []
-  action:
-  - delay: 00:00:01
-  - data:
-      payload: 'OFF'
-      topic: cmnd/garage_tesla/POWER
-    service: mqtt.publish
 - id: 2_bedroom_hm_heater_on_morning_weekdays
   alias: 2 bedroom hm heater on morning weekdays
   description: ''
@@ -4070,3 +4088,177 @@
       - 100
       brightness_pct: 100
       transition: 1
+- id: '1586631239525'
+  alias: 2 Bedroom o light white
+  description: ''
+  trigger:
+  - device_id: b46061822edc4ead9ff4663df0e78c78
+    domain: zha
+    platform: device
+    subtype: left
+    type: remote_button_long_press
+  - device_id: b46061822edc4ead9ff4663df0e78c78
+    domain: zha
+    platform: device
+    subtype: right
+    type: remote_button_long_press
+  condition: []
+  action:
+  - data:
+      rgb_color:
+      - 255
+      - 255
+      - 255
+    entity_id: light.2_bedroom_o_light
+    service: light.turn_on
+- id: '1587455409827'
+  alias: test datetime
+  description: ''
+  trigger:
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.day.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
+  condition: []
+  action:
+  - data:
+      message: test virker
+    service: notify.mobile_app_morten_app
+- id: '1587470665669'
+  alias: 2 bedroom o set temp 16 during school
+  description: ''
+  trigger:
+  - at: 09:30:00
+    platform: time
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.workday_today
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.alle_bortreist
+      state: 'off'
+  action:
+  - data:
+      entity_id: climate.2_bedroom_o_thermostat
+      hvac_mode: heat
+      temperature: 16
+    entity_id: climate.2_bedroom_o_thermostat
+    service: climate.set_temperature
+- id: '1587548127797'
+  alias: Set time of day to Dagtid on non workday
+  description: ''
+  trigger:
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.morning_not_workday.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_today
+    state: 'off'
+  action:
+  - data:
+      entity_id: input_select.time_of_day_dropdown
+      option: Dagtid
+    entity_id: input_select.time_of_day_dropdown
+    service: input_select.select_option
+- id: '1587548317442'
+  alias: Set time of day to Natt before non workday
+  description: ''
+  trigger:
+  - platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.night_not_workday.attributes.timestamp
+      | int | timestamp_custom("%H:%M", False)) }}'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_tomorrow
+    state: 'off'
+  action:
+  - data:
+      entity_id: input_select.time_of_day_dropdown
+      option: Natt
+    entity_id: input_select.time_of_day_dropdown
+    service: input_select.select_option
+- id: '1589192438340'
+  alias: Varsel restavfall
+  description: ''
+  trigger:
+  - platform: template
+    value_template: ">\n        {% set d = (strptime(states('sensor.restavfall'),\
+      \ '%d/%m')\n                    .timestamp() - 246060)|timestamp_custom('%m-%d')\
+      \ %}\n        {{ states('sensor.date_time') == d ~ ', 13:13' }}"
+  condition: []
+  action:
+  - data:
+      message: test test
+    service: notify.mobile_app_morten_app
+- id: '1589787378859'
+  alias: garden mailbox
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.garden_mailbox
+    for: 00:00:45
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data: {}
+    entity_id: input_select.mail
+    service: input_select.select_next
+- id: '1589790826624'
+  alias: Mail in mailbox
+  description: ''
+  trigger:
+  - entity_id: input_select.mail
+    platform: state
+    to: Post
+  condition: []
+  action:
+  - data:
+      data:
+        push:
+          badge: 5
+      message: Nå er det post i postkassa
+    service: notify.mobile_app_morten_app
+  - data_template:
+      volume_level: 0.6
+    entity_id: media_player.1_livingroom_assistant
+    service: media_player.volume_set
+  - data:
+      message: Nå er det post i postkassa
+    entity_id: media_player.1_livingroom_assistant
+    service: tts.google_translate_say
+  - delay: 00:00:15
+  - data_template:
+      volume_level: 0.5
+    entity_id: media_player.1_livingroom_assistant
+    service: media_player.volume_set
+- id: '1589797434368'
+  alias: garage Nissan relee off
+  description: ''
+  trigger:
+  - payload: 'ON'
+    platform: mqtt
+    topic: cmnd/garage_nissan/POWER
+  condition: []
+  action:
+  - delay: 00:00:01
+  - data:
+      payload: 'OFF'
+      topic: cmnd/garage_nissan/POWER
+    service: mqtt.publish
+- id: '1589797517991'
+  alias: garage Tesla relee off
+  description: ''
+  trigger:
+  - payload: 'ON'
+    platform: mqtt
+    topic: cmnd/garage_tesla/POWER
+  condition: []
+  action:
+  - delay: 00:00:01
+  - data:
+      payload: 'OFF'
+      topic: cmnd/garage_tesla/POWER
+    service: mqtt.publish
