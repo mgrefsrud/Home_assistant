@@ -2563,7 +2563,7 @@
   - delay: 00:00:10
   - data:
       entity_id: media_player.1_livingroom_tv
-      source: hdmi 1
+      source: Chromecast
     service: media_player.select_source
   - data:
       entity_id: media_player.1_livingroom_soundbar
@@ -2582,7 +2582,7 @@
   action:
   - data:
       entity_id: media_player.1_livingroom_tv
-      source: hdmi 1
+      source: Chromecast
     service: media_player.select_source
   - data:
       entity_id: media_player.1_livingroom_soundbar
@@ -2755,20 +2755,19 @@
 - id: Morten_mark_as_Hjemme
   alias: Morten mark as Hjemme
   trigger:
-  - platform: state
-    entity_id: input_select.morten_status_dropdown
+  - entity_id: input_select.morten_status_dropdown
+    for: 0:05:00
+    platform: state
     to: Kommet
-    for:
-      minutes: 5
-  - platform: state
-    entity_id: input_select.morten_status_dropdown
+  - entity_id: input_select.morten_status_dropdown
     from: Reist
+    platform: state
     to: Kommet
   action:
-  - service: input_select.select_option
-    data:
+  - data:
       entity_id: input_select.morten_status_dropdown
       option: Hjemme
+    service: input_select.select_option
 - id: Morten_mark_as_Akkurat_reist
   alias: Morten mark as Reist
   trigger:
@@ -2927,20 +2926,19 @@
 - id: Helen_mark_as_Hjemme
   alias: Helen mark as Hjemme
   trigger:
-  - platform: state
-    entity_id: input_select.helen_status_dropdown
+  - entity_id: input_select.helen_status_dropdown
+    for: 0:05:00
+    platform: state
     to: Kommet
-    for:
-      minutes: 5
-  - platform: state
-    entity_id: input_select.helen_status_dropdown
+  - entity_id: input_select.helen_status_dropdown
     from: Reist
+    platform: state
     to: Kommet
   action:
-  - service: input_select.select_option
-    data:
+  - data:
       entity_id: input_select.helen_status_dropdown
       option: Hjemme
+    service: input_select.select_option
 - id: Helen_mark_as_Akkurat_reist
   alias: Helen mark as Reist
   trigger:
@@ -3092,20 +3090,19 @@
 - id: Karoline_mark_as_Hjemme
   alias: Karoline mark as Hjemme
   trigger:
-  - platform: state
-    entity_id: input_select.karoline_status_dropdown
+  - entity_id: input_select.karoline_status_dropdown
+    for: 0:05:00
+    platform: state
     to: Kommet
-    for:
-      minutes: 5
-  - platform: state
-    entity_id: input_select.karoline_status_dropdown
+  - entity_id: input_select.karoline_status_dropdown
     from: Reist
+    platform: state
     to: Kommet
   action:
-  - service: input_select.select_option
-    data:
+  - data:
       entity_id: input_select.karoline_status_dropdown
       option: Hjemme
+    service: input_select.select_option
 - id: Karoline_mark_as_Akkurat_reist
   alias: Karoline mark as Reist
   trigger:
@@ -3264,20 +3261,19 @@
 - id: Emil_mark_as_Hjemme
   alias: Emil mark as Hjemme
   trigger:
-  - platform: state
-    entity_id: input_select.emil_status_dropdown
+  - entity_id: input_select.emil_status_dropdown
+    for: 0:05:00
+    platform: state
     to: Kommet
-    for:
-      minutes: 5
-  - platform: state
-    entity_id: input_select.emil_status_dropdown
+  - entity_id: input_select.emil_status_dropdown
     from: Reist
+    platform: state
     to: Kommet
   action:
-  - service: input_select.select_option
-    data:
+  - data:
       entity_id: input_select.emil_status_dropdown
       option: Hjemme
+    service: input_select.select_option
 - id: Emil_mark_as_Akkurat_reist
   alias: Emil mark as Reist
   trigger:
@@ -3436,20 +3432,19 @@
 - id: Tobias_mark_as_Hjemme
   alias: Tobias mark as Hjemme
   trigger:
-  - platform: state
-    entity_id: input_select.tobias_status_dropdown
+  - entity_id: input_select.tobias_status_dropdown
+    for: 0:05:00
+    platform: state
     to: Kommet
-    for:
-      minutes: 5
-  - platform: state
-    entity_id: input_select.tobias_status_dropdown
+  - entity_id: input_select.tobias_status_dropdown
     from: Reist
+    platform: state
     to: Kommet
   action:
-  - service: input_select.select_option
-    data:
+  - data:
       entity_id: input_select.tobias_status_dropdown
       option: Hjemme
+    service: input_select.select_option
 - id: Tobias_mark_as_Akkurat_reist
   alias: Tobias mark as Reist
   trigger:
@@ -3973,6 +3968,9 @@
   - condition: state
     entity_id: binary_sensor.workday_today
     state: 'on'
+  - below: '15'
+    condition: numeric_state
+    entity_id: sensor.netatmo_outside_temperature
   action:
   - data:
       entity_id: climate.2_bedroom_hm_thermostat

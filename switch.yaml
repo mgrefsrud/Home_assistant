@@ -58,43 +58,17 @@
         data:
           entity_id: lock.front_door
           code: !secret verisure_lock_code
-#      icon_template: >
-#          {% if is_state('lock.front_door', 'unlocked') %}
-#            mdi:lock-open-outline
-#          {% else %}
-#            mdi:lock
-#          {% endif %}  
-          
+
 - platform: template
   switches:
     1_livingroom_soundbar:
       value_template: "true"
-#      value_template: >-
-#        {% if is_state('input_select.soundbar_status_dropdown','On') %}
-#        {{ states('input_select.soundbar_status_dropdown') }}
-#        {% else %}
-#        {{ states('input_select.soundbar_status_dropdown') }}
-#        {% endif %}      
       turn_on:
         - service: script.turn_on
           entity_id: script.soundbar_on
       turn_off:
         - service: script.turn_on
           entity_id: script.soundbar_off
-
-    1_livingroom_soundbar_mute:
-      value_template: >-
-        {% if is_state('input_select.soundbar_status_dropdown','On') %}
-        {{ states('input_select.soundbar_status_dropdown') }}
-        {% else %}
-        {{ states('input_select.soundbar_status_dropdown') }}
-        {% endif %}      
-      turn_on:
-        - service: script.turn_on
-          entity_id: script.soundbar_mute
-      turn_off:
-        - service: script.turn_on
-          entity_id: script.soundbar_mute
 
     1_livingroom_heatpump:
 #      value_template: "{{ is_state('input_select.heatpump', 'On') }}"
@@ -112,11 +86,3 @@
           entity_id: script.heatpump_off
 
 
-#    1_livingroom_heat_pump:
-#      value_template: "true"
-#      turn_on:
-#        - service: climate.turn_on
-#          entity_id: climate.1_livingroom_heat_pump
-#      turn_off:
-#        - service: cliamte.turn_off
-#          entity_id: climate.1_livingroom_heat_pump

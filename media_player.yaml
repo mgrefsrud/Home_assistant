@@ -13,11 +13,11 @@
       service: script.turn_on
       data_template:
         entity_id: >
-          {% if source ==  'hdmi 1' %}
+          {% if source ==  'Chromecast' %}
             script.tv_hdmi_1
-          {% elif source ==  'hdmi 2' %}
+          {% elif source ==  'TV' %}
             script.tv_hdmi_2
-          {% elif source == 'hdmi 3' %}
+          {% elif source == 'Blueray' %}
             script.tv_hdmi_3
           {% else %} 
             script.tv_on_off
@@ -31,13 +31,13 @@
   name: 1_livingroom_soundbar
   commands:
     turn_on:
-      service: switch.turn_on
+      service: script.turn_on
       data: 
-        entity_id: switch.1_livingroom_soundbar
+        entity_id: script.soundbar_on
     turn_off:
-      service: switch.turn_off
+      service: script.turn_on
       data: 
-        entity_id: switch.1_livingroom_soundbar
+        entity_id: script.soundbar_off
     volume_up:
       service: script.turn_on
       data: 
@@ -67,6 +67,7 @@
           {% endif %}
   attributes:
     state: switch.1_livingroom_soundbar
+    is_volume_muted: input_boolean.soundbar_mute
     source: input_select.soundbar_source_dropdown
     source_list: input_select.soundbar_source_dropdown|options
     
@@ -80,17 +81,19 @@
     turn_on:
       service: script.turn_on
       data: 
-        entity_id: script.blueray_on_off
+        entity_id: script.blueray_on
     turn_off:
       service: script.turn_on
       data: 
-        entity_id: script.blueray_on_off
-#    play:
-#      service: script.turn_on
-#      data: 
-#        entity_id: script.blueray_play
-#    pause:
-#      service: script.turn_on
-#      data: 
-#        entity_id: script.blueray_pause
+        entity_id: script.blueray_off
+    play:
+      service: script.turn_on
+      data: 
+        entity_id: script.blueray_play
+    pause:
+      service: script.turn_on
+      data: 
+        entity_id: script.blueray_pause
+  attributes:
+    state: input_boolean.blueray
   

@@ -168,11 +168,8 @@ cover: !include cover.yaml
 sensor: !include sensor.yaml
 scene: !include scenes.yaml
 binary_sensor: !include binary_sensor.yaml
-#input_select: !include_dir_merge_named input_select
 timer: !include timer.yaml
-#input_boolean: !include input_boolean.yaml
 remote: !include remote.yaml
 climate: !include climate.yaml
 media_player: !include media_player.yaml
 alert: !include alert.yaml
-#input_datetime: !include input_datetime.yaml
