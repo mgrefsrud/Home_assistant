@@ -71,12 +71,11 @@
           entity_id: script.soundbar_off
 
     1_livingroom_heatpump:
-#      value_template: "{{ is_state('input_select.heatpump', 'On') }}"
       value_template: >-
-        {% if is_state('input_select.heatpump','On') %}
-        {{ states('input_select.heatpump') }}
+        {% if is_state('input_boolean.heatpump','on') %}
+        {{ states('input_boolean.heatpump') }}
         {% else %}
-        {{ states('input_select.heatpump') }}
+        {{ states('input_boolean.heatpump') }}
         {% endif %}      
       turn_on:       
         - service: script.turn_on

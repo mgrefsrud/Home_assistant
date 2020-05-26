@@ -153,6 +153,10 @@ camera:
     mjpeg_url: !secret garage_cam_ip_mjpeg
     username: !secret garage_cam_user
     password: !secret garage_cam_pwd
+  - platform: vivotek
+    ip_address: !secret garage_cam_ip
+    username: !secret garage_cam_user
+    password: !secret garage_cam_pwd
 
 #Add Car
 nissan_leaf:

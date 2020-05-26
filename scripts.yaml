@@ -188,10 +188,9 @@ heatpump_heat:
         data:
           command:
             - 'heatpump_heat' 
-      - service: input_select.select_option
+      - service: input_boolean.turn_on
         data:
-          entity_id: input_select.heatpump
-          option: On
+          entity_id: input_boolean.heatpump
 
 heatpump_cool:
     sequence:
@@ -200,10 +199,9 @@ heatpump_cool:
         data:
           command:
             - 'heatpump_cool' 
-      - service: input_select.select_option
+      - service: input_boolean.turn_on
         data:
-          entity_id: input_select.heatpump
-          option: On
+          entity_id: input_boolean.heatpump
 
 heatpump_off:
     sequence:
@@ -212,11 +210,10 @@ heatpump_off:
         data:
           command:
             - 'heatpump_off'
-      - service: input_select.select_option
+      - service: input_boolean.turn_off
         data:
-          entity_id: input_select.heatpump
-          option: Off
-            
+          entity_id: input_boolean.heatpump
+
 #soundbar_source:
 #  alias: JBL soundbar source
 #  sequence:

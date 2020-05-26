@@ -1,28 +1,28 @@
-- platform: xiaomi_remote
-  name: 1 livingroom heat pump
-  remote: remote.xiaomi_miio_192_168_0_7
-  commands: !include Roda-YKR-H-102E.yaml
-  temp_sensor: sensor.netatmo_1_livingroom_temperature
+#- platform: xiaomi_remote
+#  name: 1 livingroom heat pump
+#  remote: remote.xiaomi_miio_192_168_0_7
+#  commands: !include Roda-YKR-H-102E.yaml
+#  temp_sensor: sensor.netatmo_1_livingroom_temperature
 #  power_template: "{{ states('sensor.plug_power_158d0002366887') | float > 50 }}"
-  min_temp: 16
-  max_temp: 30
-  target_temp: 24
-  target_temp_step: 1
-  hvac_mode: heat
-  fan_mode: low
-  customize:
-    hvac_modes:
-      - cool
-      - heat
-      - dry
-      - 'on'
-      - 'off'
-    fan_modes:
-      - low
-      - medium
-      - high
-      - auto  
-    
+#  min_temp: 16
+#  max_temp: 30
+#  target_temp: 24
+#  target_temp_step: 1
+#  hvac_mode: heat
+#  fan_mode: low
+#  customize:
+#    hvac_modes:
+#      - cool
+#      - heat
+#      - dry
+#      - 'on'
+#      - 'off'
+#    fan_modes:
+#      - low
+#      - medium
+#      - high
+#      - auto  
+   
 - platform: generic_thermostat
   name: 1 Bedroom k thermostat
   heater: switch.1_bedroom_k_heater

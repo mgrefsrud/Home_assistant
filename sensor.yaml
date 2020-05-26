@@ -17,30 +17,9 @@
     - highClouds
     - dewpointTemperature
     
-#Netatmo sensor
-- platform: netatmo
-  station: Hesteløkka
-  modules: 
-    - 1_Livingroom
-    - Outside
-    - Rain_Sensor
-
 ####Ipadresse####
 - platform: dnsip
 
-#Waze travel sensor
-#- platform: waze_travel_time
-#  name: travel_to_work  
-#  origin: !secret home_adress 
-#  destination:  !secret work_adress
-#  region: 'EU'
-
-#- platform: waze_travel_time
-#  name: travel_from_work  
-#  origin: !secret work_adress
-#  destination:  !secret home_adress  
-#  region: 'EU'
-    
 #People sensor
 - platform: template
   sensors:
@@ -155,18 +134,4 @@
 #  region: 'Oslo'
 #  name: "Elspot kWh"
 #  offset: '02:00:00'
-
-#- platform: template
-#  sensors:  
-#    total_power_usage:
-#      value_template: >-  
-#        '{{ ((states(sensor.1_bathroom_fan_power.state)|float) + 
-#        (states(sensor.1_bathroom_light_power.state)|float) + 
-#        (states(sensor.1_livingroom_spotlights_power.state)|float) + 
-#        (states(sensor.1_washingroom_light_power.state)|float) + 
-#        (states(sensor.2_bathroom_fan_power.state)|float) + 
-#        (states(sensor.2_bathroom_light_power.state)|float) + 
-#        (states(sensor.1_washingroom_fan_power.state)|float)) | round(1) }}'
-#      friendly_name: 'Total Effekt Forbruk'
-#      unit_of_measurement: 'w'
 

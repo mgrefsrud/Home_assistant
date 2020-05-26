@@ -485,16 +485,16 @@
   action:
   - data_template:
       volume_level: 0.6
-    entity_id: media_player.1_livingroom_assistant
+    entity_id: media_player.1_livingroom_sonos
     service: media_player.volume_set
   - data:
       message: Kanskje lukke kjøleskapet?
-    entity_id: media_player.1_livingroom_assistant
+    entity_id: media_player.1_livingroom_sonos
     service: tts.google_translate_say
   - delay: 00:00:10
   - data_template:
       volume_level: 0.5
-    entity_id: media_player.1_livingroom_assistant
+    entity_id: media_player.1_livingroom_sonos
     service: media_player.volume_set
 - id: 1_kitchen_refridgerator_door_alert_2
   alias: 1 Kitchen refridgerator door alert 2
@@ -511,15 +511,15 @@
   action:
   - data_template:
       volume_level: 0.6
-    entity_id: media_player.1_livingroom_assistant
+    entity_id: media_player.1_livingroom_sonos
     service: media_player.volume_set
   - data:
       message: Nå må du lukke kjøleskapet!
-    entity_id: media_player.1_livingroom_assistant
+    entity_id: media_player.1_livingroom_sonos
     service: tts.google_translate_say
   - data_template:
       volume_level: 0.5
-    entity_id: media_player.1_livingroom_assistant
+    entity_id: media_player.1_livingroom_sonos
     service: media_player.volume_set
 - id: 1_livingroom_turn_down_Heat_pump_evening
   alias: 1 livingroom turn down Heat pump evening
@@ -4260,3 +4260,35 @@
       payload: 'OFF'
       topic: cmnd/garage_tesla/POWER
     service: mqtt.publish
+- id: '1590273387229'
+  alias: 2 bedroom e chromecast pause
+  description: ''
+  trigger:
+  - entity_id: sensor.emil_status
+    for: 00:10:00
+    platform: state
+    to: borte
+  condition:
+  - condition: state
+    entity_id: media_player.2_bedroom_e_chromecast
+    state: playing
+  action:
+  - data: {}
+    entity_id: media_player.2_bedroom_e_chromecast
+    service: media_player.media_pause
+- id: '1590396909538'
+  alias: garden terrace lights off
+  description: ''
+  trigger:
+  - event: sunrise
+    platform: sun
+  condition:
+  - condition: device
+    device_id: a6cc3e0ff91d4ed88be3e33050756c90
+    domain: switch
+    entity_id: switch.garden_terrace_lights
+    type: is_on
+  action:
+  - data: {}
+    entity_id: switch.garden_terrace_lights
+    service: switch.turn_off
