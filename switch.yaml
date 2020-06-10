@@ -84,4 +84,17 @@
         - service: script.turn_on
           entity_id: script.heatpump_off
 
+    1_livingroom_heatpump_cool:
+      value_template: >-
+        {% if is_state('input_boolean.heatpump_cool','on') %}
+        {{ states('input_boolean.heatpump_cool') }}
+        {% else %}
+        {{ states('input_boolean.heatpump_cool') }}
+        {% endif %}      
+      turn_on:       
+        - service: script.turn_on
+          entity_id: script.heatpump_cool
+      turn_off:
+        - service: script.turn_on
+          entity_id: script.heatpump_cool_off
 

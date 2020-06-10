@@ -274,18 +274,13 @@
   - condition: state
     entity_id: input_select.time_of_day_dropdown
     state: Dagtid
-  - data_template:
-      volume_level: 0.6
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
   - data:
-      message: Nå er det over 25 grader på rommet til Karoline
-    entity_id: media_player.1_livingroom_assistant
-    service: tts.google_translate_say
-  - data_template:
-      volume_level: 0.5
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
+      variables:
+        what: Nå er det over 25 grader på rommet til Karoline
+    data_template:
+      volume_level: 0.3
+    entity_id: script.1591765433504
+    service: script.turn_on
 - id: 1_hall_turn_down_thermostat_evening
   alias: 1 hall turn down thermostat evening
   trigger:
@@ -429,18 +424,13 @@
     entity_id: input_select.time_of_day_dropdown
     state: Dagtid
   action:
-  - data_template:
-      volume_level: 0.6
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
   - data:
-      message: Utgangsdøra er åpen.
-    entity_id: media_player.1_livingroom_assistant
-    service: tts.google_translate_say
-  - data_template:
-      volume_level: 0.5
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
+      variables:
+        what: Utgangsdøra er åpen.
+    data_template:
+      volume_level: 0.3
+    entity_id: script.1591765433504
+    service: script.turn_on
 - id: 1_hall_closet_light_on
   alias: 1 hall closet light on
   description: ''
@@ -483,19 +473,11 @@
     entity_id: input_select.time_of_day_dropdown
     state: Dagtid
   action:
-  - data_template:
-      volume_level: 0.6
-    entity_id: media_player.1_livingroom_sonos
-    service: media_player.volume_set
   - data:
-      message: Kanskje lukke kjøleskapet?
-    entity_id: media_player.1_livingroom_sonos
-    service: tts.google_translate_say
-  - delay: 00:00:10
-  - data_template:
-      volume_level: 0.5
-    entity_id: media_player.1_livingroom_sonos
-    service: media_player.volume_set
+      variables:
+        what: Kanskje lukke kjøleskapet?
+    entity_id: script.1591765433504
+    service: script.turn_on
 - id: 1_kitchen_refridgerator_door_alert_2
   alias: 1 Kitchen refridgerator door alert 2
   trigger:
@@ -509,18 +491,13 @@
     entity_id: input_select.time_of_day_dropdown
     state: Dagtid
   action:
-  - data_template:
-      volume_level: 0.6
-    entity_id: media_player.1_livingroom_sonos
-    service: media_player.volume_set
   - data:
-      message: Nå må du lukke kjøleskapet!
-    entity_id: media_player.1_livingroom_sonos
-    service: tts.google_translate_say
-  - data_template:
-      volume_level: 0.5
-    entity_id: media_player.1_livingroom_sonos
-    service: media_player.volume_set
+      variables:
+        what: Nå må du lukke kjøleskapet!
+    data_template:
+      volume_level: 0.6
+    entity_id: script.1591765433504
+    service: script.turn_on
 - id: 1_livingroom_turn_down_Heat_pump_evening
   alias: 1 livingroom turn down Heat pump evening
   trigger:
@@ -993,11 +970,11 @@
 - id: 2_bathroom_window_is_open_and_it_is_raining
   alias: 2 bathroom window is open and it is raining
   trigger:
-    platform: numeric_state
+  - above: '0'
     entity_id: sensor.netatmo_rain_sensor_rain
-    above: '0'
+    platform: numeric_state
   condition:
-    condition: and
+  - condition: and
     conditions:
     - condition: state
       entity_id: binary_sensor.2_bathroom_roof_window
@@ -1006,19 +983,13 @@
       entity_id: input_select.time_of_day_dropdown
       state: Dagtid
   action:
-  - data_template:
-      volume_level: 0.6
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
-  - service: tts.google_translate_say
-    entity_id: media_player.1_livingroom_assistant
-    data:
-      message: Det regner og takvindu på badet er åpent.
-  - delay: 00:00:05
-  - data_template:
-      volume_level: 0.5
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
+  - data:
+      variables:
+        what: Det regner og takvindu på badet oppe er åpent.
+    data_template:
+      volume_level: 0.3
+    entity_id: script.1591765433504
+    service: script.turn_on
 - id: 2_bathroom_turn_down_thermostat_evening
   alias: 2 bathroom turn down thermostat evening
   trigger:
@@ -1206,18 +1177,13 @@
   - condition: state
     entity_id: input_select.time_of_day_dropdown
     state: Dagtid
-  - data_template:
-      volume_level: 0.6
-    entity_id: media_player.1_livingroom_chromecast
-    service: media_player.volume_set
   - data:
-      message: Nå er det over 25 grader på rommet til Emil
-    entity_id: media_player.1_livingroom_assistant
-    service: tts.google_translate_say
-  - data_template:
-      volume_level: 0.5
-    entity_id: media_player.1_livingroom_chromecast
-    service: media_player.volume_set
+      variables:
+        what: Nå er det over 25 grader på rommet til Emil
+    data_template:
+      volume_level: 0.3
+    entity_id: script.1591765433504
+    service: script.turn_on
 - id: 2_bedroom_e_alert_above_29_degrees
   alias: 2 bedroom e alert temperature above 29
   trigger:
@@ -1285,11 +1251,11 @@
 - id: 2_bedroom_hm_window_is_open_and_it_is_raining
   alias: 2 bedroom hm window is open and it is raining
   trigger:
-    platform: numeric_state
+  - above: '0'
     entity_id: sensor.netatmo_rain_sensor_rain
-    above: '0'
+    platform: numeric_state
   condition:
-    condition: and
+  - condition: and
     conditions:
     - condition: state
       entity_id: binary_sensor.2_bedroom_hm_roof_window
@@ -1298,19 +1264,13 @@
       entity_id: input_select.time_of_day_dropdown
       state: Dagtid
   action:
-  - data_template:
-      volume_level: 0.6
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
-  - service: tts.google_translate_say
-    entity_id: media_player.1_livingroom_assistant
-    data:
-      message: Det regner og takvindu på soverommet er åpent.
-  - delay: 00:00:05
-  - data_template:
-      volume_level: 0.5
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
+  - data:
+      variables:
+        what: Det regner og takvindu på soverommet er åpent.
+    data_template:
+      volume_level: 0.3
+    entity_id: script.1591765433504
+    service: script.turn_on
 - id: 2_bedroom_o_set_temp_16_evening_weekdays
   alias: 2 bedroom o set temp 16 evening weekdays
   trigger:
@@ -1420,26 +1380,20 @@
 - id: 2_bedroom_o_alert_above_25_degrees
   alias: 2 bedroom o alert temperature above 25
   trigger:
-    platform: numeric_state
+  - above: '25'
     entity_id: sensor.2_bedroom_o_temperature
-    above: '25'
+    platform: numeric_state
   action:
   - condition: state
     entity_id: input_select.time_of_day_dropdown
     state: Dagtid
-  - data_template:
-      volume_level: 0.6
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
-  - service: tts.google_translate_say
-    entity_id: media_player.1_livingroom_assistant
-    data:
-      message: Nå er det over 25 grader på rommet til Ole
-  - delay: 00:00:05
-  - data_template:
-      volume_level: 0.5
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
+  - data:
+      variables:
+        what: Nå er det over 25 grader på rommet til Ole
+    data_template:
+      volume_level: 0.3
+    entity_id: script.1591765433504
+    service: script.turn_on
 - id: 2_bedroom_t_set_temp_22_morning_weekdays
   alias: 2 bedroom t set temp 22 morning weekdays
   trigger:
@@ -1590,26 +1544,20 @@
 - id: 2_bedroom_t_alert_above_25_degrees
   alias: 2 bedroom t alert temperature above 25
   trigger:
-    platform: numeric_state
+  - above: '25'
     entity_id: sensor.2_bedroom_t_temperature
-    above: '25'
+    platform: numeric_state
   action:
   - condition: state
     entity_id: input_select.time_of_day_dropdown
     state: Dagtid
-  - data_template:
-      volume_level: 0.6
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
-  - service: tts.google_translate_say
-    entity_id: media_player.1_livingroom_assistant
-    data:
-      message: Nå er det over 25 grader på rommet til Tobias
-  - delay: 00:00:05
-  - data_template:
-      volume_level: 0.5
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
+  - data:
+      variables:
+        what: Nå er det over 25 grader på rommet til Tobias
+    data_template:
+      volume_level: 0.3
+    entity_id: script.1591765433504
+    service: script.turn_on
 - id: 2_livingroom_window_is_open_and_it_is_raining
   alias: 2 livingroom window is open and it is raining
   trigger:
@@ -1626,19 +1574,13 @@
       entity_id: input_select.time_of_day_dropdown
       state: Dagtid
   action:
-  - data_template:
-      volume_level: 0.6
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
   - data:
-      message: Det regner og takvindu i stua er åpent.
-    entity_id: media_player.1_livingroom_assistant
-    service: tts.google_translate_say
-  - delay: 00:00:05
-  - data_template:
-      volume_level: 0.5
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
+      variables:
+        what: Det regner og takvindu i stua oppe er åpent.
+    data_template:
+      volume_level: 0.3
+    entity_id: script.1591765433504
+    service: script.turn_on
 - id: 1_hall_front_door_warning_night
   alias: 1 hall front door warning night
   trigger:
@@ -1781,49 +1723,37 @@
 - id: brew_bottle_temperature_to_high
   alias: brew bottle temperature to high
   trigger:
-    platform: numeric_state
+  - above: '21'
     entity_id: sensor.brew_bottles_temperature
-    above: '21'
+    platform: numeric_state
   action:
   - condition: state
     entity_id: input_select.time_of_day_dropdown
     state: Dagtid
-  - data_template:
-      volume_level: 0.6
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
-  - service: tts.google_translate_say
-    entity_id: media_player.1_livingroom_assistant
-    data:
-      message: Nå er det for varmt for øl flaskene.
-  - delay: 00:00:05
-  - data_template:
-      volume_level: 0.5
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
+  - data:
+      variables:
+        what: Nå er det for varmt for ølflaskene.
+    data_template:
+      volume_level: 0.3
+    entity_id: script.1591765433504
+    service: script.turn_on
 - id: brew_bottle_temperature_to_low
   alias: brew bottle temperature to low
   trigger:
-    platform: numeric_state
+  - below: '17'
     entity_id: sensor.brew_bottles_temperature
-    below: '17'
+    platform: numeric_state
   action:
   - condition: state
     entity_id: input_select.time_of_day_dropdown
     state: Dagtid
-  - data_template:
-      volume_level: 0.6
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
-  - service: tts.google_translate_say
-    entity_id: media_player.1_livingroom_assistant
-    data:
-      message: Nå er det for kaldt for øl flaskene.
-  - delay: 00:00:05
-  - data_template:
-      volume_level: 0.5
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
+  - data:
+      variables:
+        what: Nå er det for kaldt for ølflaskene.
+    data_template:
+      volume_level: 0.3
+    entity_id: script.1591765433504
+    service: script.turn_on
 - id: brew_fermentation_temperature_to_high
   alias: brew fermentation temperature to high
   trigger:
@@ -1834,19 +1764,13 @@
   - condition: state
     entity_id: input_select.time_of_day_dropdown
     state: Dagtid
-  - data_template:
-      volume_level: 0.6
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
   - data:
-      message: Nå er det for varmt for gjæringskaret.
-    entity_id: media_player.1_livingroom_assistant
-    service: tts.google_translate_say
-  - delay: 00:00:05
-  - data_template:
-      volume_level: 0.5
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
+      variables:
+        what: Nå er det for varmt for gjæringskaret.
+    data_template:
+      volume_level: 0.3
+    entity_id: script.1591765433504
+    service: script.turn_on
   - data:
       message: Nå er det for varmt for gjæringskaret
     service: notify.mobile_app_morten_app
@@ -1860,19 +1784,13 @@
   - condition: state
     entity_id: input_select.time_of_day_dropdown
     state: Dagtid
-  - data_template:
-      volume_level: 0.6
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
   - data:
-      message: Nå er det for kaldt for gjæringskaret.
-    entity_id: media_player.1_livingroom_assistant
-    service: tts.google_translate_say
-  - delay: 00:00:05
-  - data_template:
-      volume_level: 0.5
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
+      variables:
+        what: Nå er det for kaldt for gjæringskaret.
+    data_template:
+      volume_level: 0.3
+    entity_id: script.1591765433504
+    service: script.turn_on
   - data:
       message: Nå er det for kaldt for gjæringskaret
     service: notify.mobile_app_morten_app
@@ -1975,11 +1893,11 @@
     service: scene.turn_on
   - data_template:
       volume_level: 1
-    entity_id: media_player.1_livingroom_assistant
+    entity_id: media_player.1_livingroom_sonos
     service: media_player.volume_set
   - data:
       message: 'Brannalarmen oppe er utløst for røyk '
-    entity_id: media_player.1_livingroom_assistant
+    entity_id: media_player.1_livingroom_sonos
     service: tts.google_translate_say
   - data:
       message: 'Brannalarmen oppe er utløst for røyk '
@@ -1995,13 +1913,13 @@
   - entity_id: scene.normal
     service: scene.turn_on
   - data_template:
-      entity_id: media_player.1_livingroom_assistant
+      entity_id: media_player.1_livingroom_sonos
       volume_level: 1
-    entity_id: media_player.1_livingroom_assistant
+    entity_id: media_player.1_livingroom_sonos
     service: media_player.volume_set
   - data:
       message: 'Brannalarmen, nede er utløst for røyk '
-    entity_id: media_player.1_livingroom_assistant
+    entity_id: media_player.1_livingroom_sonos
     service: tts.google_translate_say
   - data:
       message: 'Brannalarmen nede er utløst for røyk '
@@ -2017,13 +1935,13 @@
   - entity_id: scene.normal
     service: scene.turn_on
   - data_template:
-      entity_id: media_player.1_livingroom_assistant
+      entity_id: media_player.1_livingroom_sonos
       volume_level: 1
-    entity_id: media_player.1_livingroom_assistant
+    entity_id: media_player.1_livingroom_sonos
     service: media_player.volume_set
   - data:
       message: 'Brannalarmen oppe er utløst for varme '
-    entity_id: media_player.1_livingroom_assistant
+    entity_id: media_player.1_livingroom_sonos
     service: tts.google_translate_say
   - data:
       message: 'Brannalarmen oppe er utløst for varme '
@@ -2039,13 +1957,13 @@
   - entity_id: scene.normal
     service: scene.turn_on
   - data_template:
-      entity_id: media_player.1_livingroom_assistant
+      entity_id: media_player.1_livingroom_sonos
       volume_level: 1
-    entity_id: media_player.1_livingroom_assistant
+    entity_id: media_player.1_livingroom_sonos
     service: media_player.volume_set
   - data:
       message: 'Brannalarmen nede er utløst for varme '
-    entity_id: media_player.1_livingroom_assistant
+    entity_id: media_player.1_livingroom_sonos
     service: tts.google_translate_say
   - data:
       message: 'Brannalarmen nede er utløst for varme '
@@ -2072,14 +1990,13 @@
           badge: 5
       message: Garasjen til nissan er oppe, jeg lukker den
     service: notify.mobile_app_helen_app
-  - data_template:
-      volume_level: 0.6
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
   - data:
-      message: Garasjeporten til nissan er åpen, jeg lukker den.
-    entity_id: media_player.1_livingroom_assistant
-    service: tts.google_translate_say
+      variables:
+        what: Garasjeporten til nissan er åpen, jeg lukker den.
+    data_template:
+      volume_level: 0.3
+    entity_id: script.1591765433504
+    service: script.turn_on
   - entity_id:
     - switch.garage_lights_switch
     service: homeassistant.turn_off
@@ -2093,11 +2010,6 @@
     state: open
   - entity_id: cover.garage_door_nissan
     service: cover.close_cover
-  - delay: 00:00:05
-  - data_template:
-      volume_level: 0.5
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
 - id: Garage_tesla_door_is_open
   alias: Garage tesla door is open
   trigger:
@@ -2113,14 +2025,13 @@
           badge: 5
       message: Garasjen til tesla er oppe, jeg lukker den
     service: notify.mobile_app_morten_app
-  - data_template:
-      volume_level: 0.6
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
   - data:
-      message: Garasjeporten til tesla er åpen, jeg lukker den.
-    entity_id: media_player.1_livingroom_assistant
-    service: tts.google_translate_say
+      variables:
+        what: Garasjeporten til tesla er åpen, jeg lukker den
+    data_template:
+      volume_level: 0.3
+    entity_id: script.1591765433504
+    service: script.turn_on
   - entity_id:
     - switch.garage_lights_switch
     service: homeassistant.turn_off
@@ -2135,11 +2046,6 @@
   - data: {}
     entity_id: cover.garage_door_tesla
     service: cover.close_cover
-  - delay: 00:00:05
-  - data_template:
-      volume_level: 0.5
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
 - id: Garage_start_gate_timer_tesla
   alias: 'Garage tesla start gate timer '
   trigger:
@@ -2177,19 +2083,13 @@
   - condition: state
     entity_id: input_select.time_of_day_dropdown
     state: Dagtid
-  - data_template:
-      volume_level: 0.6
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
   - data:
-      message: Garasjeporten til tesla gikk opp igjen.
-    entity_id: media_player.1_livingroom_assistant
-    service: tts.google_translate_say
-  - delay: 00:00:05
-  - data_template:
-      volume_level: 0.5
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
+      variables:
+        what: Garasjeporten til tesla gikk opp igjen.
+    data_template:
+      volume_level: 0.3
+    entity_id: script.1591765433504
+    service: script.turn_on
 - id: Garage_start_gate_timer_nissan
   alias: 'Garage nissan start gate timer '
   trigger:
@@ -2228,18 +2128,10 @@
     entity_id: input_select.time_of_day_dropdown
     state: Dagtid
   - data:
-      volume_level: 0.6
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
-  - data:
-      message: Garasjeporten til nissan gikk opp igjen.
-    entity_id: media_player.1_livingroom_assistant
-    service: tts.google_translate_say
-  - delay: 00:00:05
-  - data:
-      volume_level: 0.3
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
+      variables:
+        what: Garasjeporten til nissan gikk opp igjen.
+    entity_id: script.1591765433504
+    service: script.turn_on
 - id: Garage_lights_on_nissan
   alias: 'Garage nissan lights on '
   trigger:
@@ -2459,28 +2351,16 @@
     platform: state
     to: 'off'
   action:
-  - data:
-      data:
-        push:
-          badge: 5
-      message: Henry er ute på tur
-    service: notify.mobile_app_morten_app
   - condition: state
     entity_id: input_select.time_of_day_dropdown
     state: Dagtid
-  - data_template:
-      volume_level: 0.6
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
   - data:
-      message: Nå er Henry ute på tur
-    entity_id: media_player.1_livingroom_assistant
-    service: tts.google_translate_say
-  - delay: 00:00:05
-  - data_template:
-      volume_level: 0.5
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
+      variables:
+        what: Nå er Henry utepå tur
+    data_template:
+      volume_level: 0.3
+    entity_id: script.1591765433504
+    service: script.turn_on
 - id: Garden_Frank_is_stuck
   alias: Garden Henry is stuck
   trigger:
@@ -2499,19 +2379,13 @@
   - condition: state
     entity_id: input_select.time_of_day_dropdown
     state: Dagtid
-  - data_template:
-      volume_level: 0.6
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
   - data:
-      message: Nå er har nok Henry kjørt seg fast
-    entity_id: media_player.1_livingroom_assistant
-    service: tts.google_translate_say
-  - delay: 00:00:05
-  - data_template:
-      volume_level: 0.5
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
+      variables:
+        what: Nå er har nok Henry kjørt seg fast
+    data_template:
+      volume_level: 0.3
+    entity_id: script.1591765433504
+    service: script.turn_on
 - id: Garden_Frank_is_home_again
   alias: Garden Henry is home again
   trigger:
@@ -2528,25 +2402,12 @@
       state: Dagtid
   action:
   - data:
-      data:
-        android:
-          notification:
-            image: https://i.pinimg.com/originals/0f/7b/fa/0f7bfa4e6775b5977694a6036fc85b48.png
-      message: Henry er hjemme igjen
-    service: notify.mobile_app_morten_app
-  - data_template:
-      volume_level: 0.6
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
-  - data:
-      message: Nå er Henry hjemme igjen
-    entity_id: media_player.1_livingroom_assistant
-    service: tts.google_translate_say
-  - delay: 00:00:05
-  - data_template:
-      volume_level: 0.5
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
+      variables:
+        what: Nå er Henry hjemme igjen
+    data_template:
+      volume_level: 0.3
+    entity_id: script.1591765433504
+    service: script.turn_on
 - id: Chromecast_start_tv_off
   alias: 1 livingroom Chromecast start TV off
   trigger:
@@ -3597,14 +3458,15 @@
     subtype: remote_button_long_press
     type: remote_button_long_press
   action:
-  - service: input_select.select_option
-    data:
+  - data:
       entity_id: input_select.ole_status_dropdown
       option: Hjemme
-  - service: tts.google_translate_say
-    entity_id: media_player.1_livingroom_assistant
-    data:
-      message: Ole er satt til hjemme
+    service: input_select.select_option
+  - data:
+      variables:
+        what: Ole er satt til hjemme
+    entity_id: script.1591765433504
+    service: script.turn_on
 - id: ole_status_home_hall
   alias: Ole status Home gang
   trigger:
@@ -3614,14 +3476,15 @@
     subtype: remote_button_long_press
     type: remote_button_long_press
   action:
-  - service: input_select.select_option
-    data:
+  - data:
       entity_id: input_select.ole_status_dropdown
       option: Hjemme
-  - service: tts.google_translate_say
-    entity_id: media_player.1_livingroom_assistant
-    data:
-      message: Ole er satt til hjemme
+    service: input_select.select_option
+  - data:
+      variables:
+        what: Ole er satt til hjemme
+    entity_id: media_player.1_livingroom_sonos
+    service: script.turn_on
 - id: ole_status_away
   alias: Ole status away
   trigger:
@@ -4219,19 +4082,19 @@
           badge: 5
       message: Nå er det post i postkassa
     service: notify.mobile_app_morten_app
-  - data_template:
-      volume_level: 0.6
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
   - data:
+      data:
+        push:
+          badge: 5
       message: Nå er det post i postkassa
-    entity_id: media_player.1_livingroom_assistant
-    service: tts.google_translate_say
-  - delay: 00:00:15
-  - data_template:
-      volume_level: 0.5
-    entity_id: media_player.1_livingroom_assistant
-    service: media_player.volume_set
+    service: notify.mobile_app_helen_app
+  - data:
+      variables:
+        what: Nå er det post i postkassa
+    data_template:
+      volume_level: 0.3
+    entity_id: script.1591765433504
+    service: script.turn_on
 - id: '1589797434368'
   alias: garage Nissan relee off
   description: ''
